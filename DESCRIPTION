@@ -1,7 +1,7 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.5
+Version: 1.1.6
 Author: Iacus, Stefano M., King, Gary, Porro, Giuseppe
 Suggests: MatchIt, Amelia(>= 1.2-0)
 Depends: nlme, lattice, randomForest, tcltk, combinat
@@ -9,7 +9,3 @@ Maintainer: Stefano M. Iacus <stefano.iacus@unimi.it>
 Description: Implementation of the Coarsened Exact Matching algorithm
 License: GPL-2
 URL: http://gking.harvard.edu/cem/
-Packaged: 2013-04-04 17:28:51 UTC; jago
-NeedsCompilation: no
-Repository: CRAN
-Date/Publication: 2013-04-04 20:38:13
