@@ -86,7 +86,8 @@ m1 <- cem("treated", LL, drop="re78")
 L1.profile(LL$treated,LL, drop=c("treated","re78"), 
  weights=m1$w>0, add=TRUE, col="blue", lty=4, useCP=imb0$CP)
 
-legend(5, 0.9, legend=c("raw data", "pscore", "mahalanobis", "cem"), lty=1:4, col=c("red", "green", "orange", "blue"))
+legend(5, 0.9, legend=c("raw data", "pscore", "mahalanobis", "cem"), lty=1:4, 
+ col=c("red", "green", "orange", "blue"))
 }
 }
 \keyword{ datagen }

@@ -96,7 +96,8 @@ plot(sp, scale.var=F)
 
 ## You can also specify which measure of balance to use
 ## by specifying the argument "balance.metric" as
-## "L1", "mdiff" (Avg. standardized difference in means), or "mdisc" (Average Malanobis Discrepancy).  Default is "L1".
+## "L1", "mdiff" (Avg. standardized difference in means), or "mdisc" 
+## (Average Malanobis Discrepancy).  Default is "L1".
 
 plot(sp, balance.metric="mdiff")
 plot(sp, balance.metric="mdisc")
