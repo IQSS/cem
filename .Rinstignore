@@ -1,0 +1,9 @@
+doc/.*[.]tex$
+doc/.*[.]sty$
+doc/.*[.]Rout$
+doc/.*[.]zip$
+doc/Makefile
+doc/copyRd.out
+doc/JSSstyle
+
+
