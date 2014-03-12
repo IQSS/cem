@@ -156,7 +156,7 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
   if(class(obj)[1] == "cem.match"){
 
   if(mod=="randomForest"){
-   require(randomForest, quietly=TRUE)
+   #require(randomForest, quietly=TRUE) (JH edit: already attached to package by Depends declaration)
    out <- do.call(mod, list(formula=formula, data=data, subset= obj$matched==TRUE & obj$groups==obj$g.names[1],ntree=ntree))
    response <- all.vars(formula)[attr(terms(formula),"response")]
    tmp.data <- data
@@ -219,7 +219,7 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
 
 # random effects models
   if(mod=="lme"){
-   require(nlme, quietly=TRUE)
+   #require(nlme, quietly=TRUE) (JH edit: already attached to package by Depends declaration)
    data1 <- data
    data1$allID <- factor(obj$strata)
    data1$cemID <- factor(obj$mstrata)
