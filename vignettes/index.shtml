@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>CEM Software Website</title>
+<script language='Javascript' src='/gking.js'></script></HEAD>
+
+<BODY><script language="Javascript">displayHeader()</script>
+
+<h1>cem: Coarsened Exact Matching Software</h1>
+
+<div>
+<a href="http://www.economia.unimi.it/iacus">Stefano M. Iacus</a>
+<a href="/">Gary King</a>,
+<a
+href="http://www.sp.units.it/Lists/Corpo%20docente/DispForm.aspx?ID=77&Source=http%3A%2F%2Fwww%2Esp%2Eunits%2Eit%2FLists%2FCorpo%2520docente%2FAllItems%2Easpx">Giuseppe
+Porro </a>
+</div>
+<div>
+<br />
+<!-- rbuild: replace 'Version:' '</b>' version -->
+<b>Version:1.0.137</b>
+</div>
+
+<p style="float:left; width: 300px; margin: 1.5em;"> <img
+src="./Columbus_egg.jpg" width="300px" /> <br /><small> A picture of the
+the original <a
+href="http://en.wikipedia.org/wiki/Egg_of_Columbus">Columbus egg</a>,
+a name now used to describe something which is simple or obvious only
+after it has been explained.</small></p>
+
+<p>This program is designed to improve the estimation of causal
+effects via an extremely powerful method of matching that is widely
+applicable and exceptionally easy to understand and use (if you
+understand how to draw a histogram, you will understand this method).
+The program implements the Coarsened Exact Matching (CEM) algorithm
+described in
+
+<blockquote>
+Stefano M. Iacus, Gary King, and Giuseppe Porro, <span
+class="orange">"Causal Inference Without Balance Checking: Coarsened
+Exact Matching</a>"</span> (Abstract: <a
+href="/files/abs/cem-plus-abs.shtml">HTML</a> | Paper: <a
+href="/files/cem-plus.pdf">PDF</a>) and <span
+class="orange">"Multivariate Matching Methods That are Monotonic
+Imbalance Bounding"</span> (Abstract: <a
+href="/files/abs/cem-math-abs.shtml">HTML</a> | Paper: <a
+href="/files/cem-math.pdf">PDF</a>).
+</blockquote>
+
+Matching is a nonparametric method of preprocessing data to control
+for some or all of the potentially confounding influence of
+pretreatment control variables by reducing imbalance between the
+treated and control groups.  After preprocessing in this way, any
+method of analysis that would have been used without matching can be
+applied to estimate causal effects, although some methods will have
+even better properties.  CEM is a Monotonoic Imbalance Bounding (MIB)
+matching method --- which means that the balance between the treated
+and control groups is chosen by the user ex ante rather than
+discovered through the usual laborious process of checking after the
+fact and repeatedly reestimating, and so that adjusting the imbalance
+on one variable has no effect on the maximum imbalance of any other.
+CEM also strictly bounds through ex ante user choice both the degree
+of model dependence and the average treatment effect estimation error,
+eliminates the need for a separate procedure to restrict data to
+common empirical support, meets the congruence principle, is robust to
+measurement error, works well with multiple imputation methods for
+missing data, can be completely automated, and is extremely fast
+computationally even with very large data sets.  After preprocessing
+data with CEM, the analyst may then use a simple difference in means
+or whatever statistical model they would have applied without
+matching.  CEM also works well for multicategory treatments,
+determining blocks in experimental designs, and evaluating extreme
+counterfactuals.
+ </p>
+  
+<ul> 
+  <li><strong>CEM Package for R:</strong></li>
+      <ul>      
+	<li>To install, sign on to R, and type:
+	    install.packages("cem",repos="http://gking.harvard.edu")  or 
+	    <!-- rbuild: replace 'cem_' '.tar.gz' version -->
+	    <a href="/src/contrib/cem_2.4-6.tar.gz">download this file</a> and
+	    install yourself.</li>
+
+	<li>For documentation, from R, type library(cem), and then
+	?cem, or download <a href="docs/cem.pdf">PDF</a> (or the
+	published <em>Journal of Statistical Software</em> version: <a
+	href="/files/cemR.pdf">PDF</a>)</li>
+      </ul>
+
+<li><strong>MatchIt Package for R</strong>: Most of the features of
+CEM are also available through the <a href="/matchit">MatchIt</a> Package
+front end.</li>
+      
+  <li><strong>CEM for Stata</strong> (version 10 or later):</li>
+      <ul>
+	<li>To install, type:<br>
+	    net from http://gking.harvard.edu/cem/<br>
+	    net install cem </li>
+	<li>You can also install from the SSC:<br>
+	    ssc install cem</li>
+	    
+      <li>For documentation, type "help cem" or download <a
+      href="/files/cem-stata.pdf">PDF</a> (or the published version in
+      <em>The Stata Journal</em>: <a
+      href="/files/cemStata.pdf">PDF</a>).</li>
+    </ul>
+
+<li>Please send ALL questions, bugs, and requests to our mailing List
+    (you must subscribe to send): <a
+    href="http://lists.gking.harvard.edu/index.cgi?info=cem"
+    target="gkingext">[Un]Subscribe</a>, or <a
+    href="http://lists.gking.harvard.edu/lists/cem_at_lists_gking_harvard_edu/"
+    target="gkingext">Browse/Search Archives</a></li>
+    
+<li><a href="/cem/" target="ChangeDetectionWiz"
+    onClick="doChangeDetectionPopup()">Be notified automatically of cem
+    updates</a></li>
+    
+</ul>
+
+
+<script language="Javascript">displayFooter()</script></BODY>
+</html>
+    
