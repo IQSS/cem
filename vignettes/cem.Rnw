@@ -285,7 +285,7 @@ To install cem, type at the R command prompt,
 and CEM will install itself onto your system automatically from CRAN.
 You may alternatively load the beta test version as
 \begin{verbatim}
-> install.packages("cem",repos="http://gking.harvard.edu")
+> install.packages("cem",repos="http://r.iq.harvard.edu", type="source") 
 \end{verbatim}
 %or if you are on a Macintosh, use:
 %\begin{verbatim}
