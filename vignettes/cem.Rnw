@@ -985,22 +985,22 @@ table(psample$full.paired)
 
 \section{Reference to CEM's Functions}
 
-\include{Rd/cem}
-\include{Rd/att}
-\include{Rd/cemspace}
-\include{Rd/DW}
-\include{Rd/imbalance}
-\include{Rd/imbspace}
-\include{Rd/k2k}
-\include{Rd/L1.meas}
-\include{Rd/L1.profile}
-\include{Rd/LL}
-\include{Rd/LeLonde}
-\include{Rd/pair}
-\include{Rd/plot.spg}
-\include{Rd/relax.cem}
-\include{Rd/shift.cem}
-\include{Rd/spacegraph}
+\include{./man/cem.Rd}
+\include{./man/att.Rd}
+\include{./man/cemspace.Rd}
+\include{./man/DW.Rd}
+\include{./man/imbalance.Rd}
+\include{./man/imbspace.Rd}
+\include{./man/k2k.Rd}
+\include{./man/L1.meas.Rd}
+\include{./man/L1.profile.Rd}
+\include{./man/LL.Rd}
+\include{./man/LeLonde.Rd}
+\include{./man/pair.Rd}
+\include{./man/plot.spg.Rd}
+\include{./man/relax.cem.Rd}
+\include{./man/shift.cem.Rd}
+\include{./man/spacegraph.Rd}
 
 
 \bibliographystyle{apsr} 
