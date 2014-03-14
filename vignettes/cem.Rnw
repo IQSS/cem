@@ -3,9 +3,9 @@
 %\usepackage{/usr/lib64/R/share/texmf/Sweave}
 %\usepackage{/usr/lib64/R/share/texmf/upquote}
 
-\usepackage{Rd/Rd}
-\usepackage{Rd/Sweave}
-\usepackage{Rd/upquote}
+\usepackage{Rd}
+\usepackage{Sweave}
+\usepackage{upquote}
 
 \SweaveOpts{width=70}
 
