@@ -81,14 +81,11 @@ exact matching (CEM) algorithm, described below.  CEM may be used
 alone or in combination with any existing matching method.  This
 algorithm, and its statistical properties, are described in
 \begin{quote}
-  Stefano M.\ Iacus, Gary King, and Giuseppe Porro, ``Matching for
-  Causal Inference Without Balance Checking: Coarsened Exact
+  Stefano M.\ Iacus, Gary King, and Giuseppe Porro, ``Causal Inference Without Balance Checking: Coarsened Exact
   Matching'',
-  \url{http://gking.harvard.edu/files/abs/cem-plus-abs.shtml}.\nocite{IacKinPor09}
-  and Stefano M.\ Iacus, Gary King, and Giuseppe Porro, ``Matching for
-  Causal Inference Without Balance Checking: Coarsened Exact
-  Matching'',
-  \url{http://gking.harvard.edu/files/abs/cem-math-abs.shtml}.\nocite{IacKinPor09a}
+  \url{http://gking.harvard.edu/files/abs/cem-plus-abs.shtml}.\nocite{IacKinPor12}
+  and Stefano M.\ Iacus, Gary King, and Giuseppe Porro, ``Multivariate Matching Methods That are Monotone Imbalacne Bounding'',
+  \url{http://gking.harvard.edu/files/abs/cem-math-abs.shtml}.\nocite{IacKinPor11}
 \end{quote}
 
 \paragraph{Properties}
@@ -121,7 +118,7 @@ full data set.  Matching involves pruning observations that have no
 close matches on pre-treatment covariates in both the treated and
 control groups.  The result is typically less model-dependence, bias,
 and (by removing heterogeneity) inefficiency
-\citep{KinZen06,HoImaKin07,IacKinPor09a,IacKinPor09}.  If used for analyzing
+\citep{KinZen06,HoImaKin07,IacKinPor11,IacKinPor12}.  If used for analyzing
 observational data, applications of CEM (and all other methods of
 causal inference) require an assumption of ignorability (a.k.a.\ ``no
 omitted variable bias'' or ``no confounding'').
@@ -210,7 +207,7 @@ uncertainty, or choosing a different research project.
 Although CEM is MIB, the actual degree of imbalance achieved in the
 matched sample may be lower than the chosen maximum, and so we also
 introduce a simple and comprehensive \emph{multivariate} imbalance
-measure \citep{IacKinPor09a}.  The measure is based on the $\mathcal
+measure \citep{IacKinPor11}.  The measure is based on the $\mathcal
 L_1$ difference between the multidimensional histogram of all
 pretreatment covariates in the treated group and that in the control
 group.  To do this, we first choose the number of bins for each
@@ -905,7 +902,7 @@ As an example we take the original \code{LeLonde} data with missing values
 <<echo=TRUE, print=FALSE>>=
 summary(LeLonde)
 @
-Now we use \code{Amelia} package \citep{HonKinBLa09} to create
+Now we use \code{Amelia} package \citep{HonKinBLa10} to create
 multiply imputed data sets:
 <<echo=TRUE, print=FALSE>>=
 require(Amelia)
@@ -1005,5 +1002,9 @@ table(psample$full.paired)
 
 \bibliographystyle{apsr} 
 \bibsep=0in 
-\bibliography{gk.bib,gkpubs.bib}
+%\bibliography{gk.bib,gkpubs.bib}
+% The above are the original files including all thousands of bibliographies, but after running latex,
+% can run: bibexport -o gkextract.bib cem.aux     to create a minimal extract for CRAN storage.
+\bibliography{gkextract.bib}
+
 \end{document}
