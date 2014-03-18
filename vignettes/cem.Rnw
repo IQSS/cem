@@ -978,7 +978,7 @@ table(psample$full.paired)
 @
 
 
-\clearpage
+%\clearpage
 
 %\section{Reference to CEM's Functions}
 
@@ -1005,6 +1005,6 @@ table(psample$full.paired)
 %\bibliography{gk.bib,gkpubs.bib}
 % The above are the original files including all thousands of bibliographies, but after running latex,
 % can run: bibexport -o gkextract.bib cem.aux     to create a minimal extract for CRAN storage.
-\bibliography{gkextract.bib}
+\bibliography{gkextract}
 
 \end{document}
