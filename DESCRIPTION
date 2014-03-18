@@ -1,7 +1,7 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.6
+Version: 1.1.7
 Author: Iacus, Stefano M., King, Gary, Porro, Giuseppe
 Suggests: MatchIt, Amelia(>= 1.2-0), tcltk
 Depends: nlme, lattice, randomForest, combinat
