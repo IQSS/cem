@@ -985,22 +985,22 @@ table(psample$full.paired)
 
 \section{Reference to CEM's Functions}
 
-\include{../man/cem.Rd}
-\include{../man/att.Rd}
-\include{../man/cemspace.Rd}
-\include{../man/DW.Rd}
-\include{../man/imbalance.Rd}
-\include{../man/imbspace.Rd}
-\include{../man/k2k.Rd}
-\include{../man/L1.meas.Rd}
-\include{../man/L1.profile.Rd}
-\include{../man/LL.Rd}
-\include{../man/LeLonde.Rd}
-\include{../man/pair.Rd}
-\include{../man/plot.spg.Rd}
-\include{../man/relax.cem.Rd}
-\include{../man/shift.cem.Rd}
-\include{../man/spacegraph.Rd}
+\input{../man/cem.Rd}
+\input{../man/att.Rd}
+\input{../man/cemspace.Rd}
+\input{../man/DW.Rd}
+\input{../man/imbalance.Rd}
+\input{../man/imbspace.Rd}
+\input{../man/k2k.Rd}
+\input{../man/L1.meas.Rd}
+\input{../man/L1.profile.Rd}
+\input{../man/LL.Rd}
+\input{../man/LeLonde.Rd}
+\input{../man/pair.Rd}
+\input{../man/plot.spg.Rd}
+\input{../man/relax.cem.Rd}
+\input{../man/shift.cem.Rd}
+\input{../man/spacegraph.Rd}
 
 
 \bibliographystyle{apsr} 
