@@ -1,3 +1,7 @@
+importFrom(combinat, combn)
+import(nlme)
+import(randomForest)
+import(lattice)
 export(cem)
 export(L1.meas)
 export(L1.profile)
