@@ -3,7 +3,9 @@ doc/.*[.]sty$
 doc/.*[.]Rout$
 doc/.*[.]zip$
 doc/Makefile
-doc/copyRd.out
-doc/JSSstyle
+vignettes/gk.bib
+vignettes/gkpubs.bib
+
+
 
 
