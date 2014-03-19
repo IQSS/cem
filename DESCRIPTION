@@ -1,7 +1,7 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.8
+Version: 1.1.9
 Author: Stefano M. Iacus <stefano.iacus@unimi.it>, 
 	Gary King <king@harvard.edu>, 
 	Giuseppe Porro <Porro Giuseppe <giuseppe.porro@uninsubria.it>
