@@ -1,10 +1,10 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.7
+Version: 1.1.8
 Author: Stefano M. Iacus <stefano.iacus@unimi.it>, 
 	Gary King <king@harvard.edu>, 
-	Giuseppe Porro
+	Giuseppe Porro <Porro Giuseppe <giuseppe.porro@uninsubria.it>
 Suggests: MatchIt, Amelia(>= 1.2-0), tcltk
 Depends: nlme, lattice, randomForest, combinat
 Maintainer: Stefano M. Iacus <stefano.iacus@unimi.it>
