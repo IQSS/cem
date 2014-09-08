@@ -27,6 +27,7 @@ print.cem.att <- function(x,full=FALSE,...){
 
 
 plot.cem.att <- function(x, obj, data, vars=NULL, plot=TRUE, ecolors,...){
+require(lattice, quietly=TRUE)
  if(!is.null(x$TE)){
   s <-  x$att.model["Std. Error", obj$treatment]
 #  q1 <- quantile(x$TE, 0.25)
@@ -151,12 +152,13 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
   rf.cem <- NULL
 
   TE <- NULL
-  control= lmeControl(maxIter=1000,opt="optim")
+  if(require(nlme))
+   control= lmeControl(maxIter=1000,opt="optim")
 
   if(class(obj)[1] == "cem.match"){
 
   if(mod=="randomForest"){
-   #require(randomForest, quietly=TRUE) (JH edit: already attached to package by Depends declaration)
+   require(randomForest, quietly=TRUE)
    out <- do.call(mod, list(formula=formula, data=data, subset= obj$matched==TRUE & obj$groups==obj$g.names[1],ntree=ntree))
    response <- all.vars(formula)[attr(terms(formula),"response")]
    tmp.data <- data
@@ -219,7 +221,7 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
 
 # random effects models
   if(mod=="lme"){
-   #require(nlme, quietly=TRUE) (JH edit: already attached to package by Depends declaration)
+   require(nlme, quietly=TRUE)
    data1 <- data
    data1$allID <- factor(obj$strata)
    data1$cemID <- factor(obj$mstrata)

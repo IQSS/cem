@@ -47,13 +47,15 @@ require(cem)
 
 data(LL)
 
-mat <- cem("treated", LL, drop=c("re78","treated"), cut=list(age=4, edu=4, re74=3, re75=3))
+mat <- cem("treated", LL, drop=c("re78","treated"), 
+ cut=list(age=4, edu=4, re74=3, re75=3))
 mat
 
 imb.raw <- L1.profile(LL$treated, LL[, mat$vars], M=250, plot=FALSE)
 
-imbsp <- imbspace(mat, LL,depth=2, raw.profile=imb.raw, maximal=6, minimal=2, 
- fixed=c("hispanic", "black", "married", "nodegree","u74","u75"), plot=FALSE)
+imbsp <- imbspace(mat, LL,depth=2, raw.profile=imb.raw, 
+ maximal=6, minimal=2, fixed=c("hispanic", "black", "married", 
+ "nodegree","u74","u75"), plot=FALSE)
 
 tmp <- plot(imbsp,data=LL,explore=interactive())
 tmp 

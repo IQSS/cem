@@ -97,20 +97,18 @@ cem.weights <- function (obj)
     w <- rep(0, obj$n)
     if (!is.null(obj$treatment)) {
         tmp <- table(obj$mstrata, obj$groups)
-        if(nrow(tmp)>0 & ncol(tmp)==length(levels(obj$groups))){
-         wh <- t((sapply(1:NROW(tmp), function(x) tmp[x,bg]/tmp[x,]) * (obj$tab["Matched",]/obj$tab["Matched", bgn])))
-         rownames(wh) <- rownames(tmp)
-         colnames(wh) <- colnames(tmp)
-         w <- numeric(obj$n)
-         mID <- as.numeric(rownames(wh))
-         nID <- length(mID)
-         for(i in 1:nID){
+        wh <- t((sapply(1:NROW(tmp), function(x) tmp[x,bg]/tmp[x,]) * (obj$tab["Matched",]/obj$tab["Matched", bgn]))) 
+        rownames(wh) <- rownames(tmp)
+        colnames(wh) <- colnames(tmp)
+        w <- numeric(obj$n)
+        mID <- as.numeric(rownames(wh))
+        nID <- length(mID)
+        for(i in 1:nID){
             for(j in levels(obj$groups)){
                 idx <- which(obj$mstrata==mID[i] & obj$groups==j)
                 w[idx] <- wh[i, match(j, colnames(wh))]
             }
         }
-     }
     }
     w
 }

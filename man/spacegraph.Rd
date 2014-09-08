@@ -62,6 +62,7 @@ The \code{spacegraph} function currently calculates two measures of balance for 
 \author{Richard Nielsen, Stephano Iacus, Gary King, and Guiseppe Porro}
 \seealso{ \code{\link{combine.spacegraphs}} }
 \examples{
+\dontrun{
 data(LL)
 
 sp <- spacegraph("treated", LL, drop="re78", M=5,
@@ -96,8 +97,8 @@ plot(sp, scale.var=F)
 
 ## You can also specify which measure of balance to use
 ## by specifying the argument "balance.metric" as
-## "L1", "mdiff" (Avg. standardized difference in means), or "mdisc" 
-## (Average Malanobis Discrepancy).  Default is "L1".
+## "L1", "mdiff" (Avg. standardized difference in means), 
+## or "mdisc" (Average Malanobis Discrepancy).  Default is "L1".
 
 plot(sp, balance.metric="mdiff")
 plot(sp, balance.metric="mdisc")
@@ -117,10 +118,10 @@ mymatches[[1]]$weight <- m.out$w
 mymatches[[1]]$method <- "matchit psm"
 
 sp <- spacegraph("treated", LL, drop="re78", M=5,
-                  R=list(cem=5,psm=5, mdm=5), other.matches=mymatches)
+ R=list(cem=5,psm=5, mdm=5), other.matches=mymatches)
 plot(sp)
 
-
+}
 }
 \keyword{datagen}
 

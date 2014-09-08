@@ -42,8 +42,13 @@ relax.plot <- function(tab, group="1", max.terms=50, perc=.5, unique=FALSE, colo
 	max <- min(max.terms, n)
 	labx <- Relaxed
 	
-	minp <- 0.95*min(PercG1[(n-max+1):n])
-	maxp <- 1.05*max(PercG1[(n-max+1):n])
+#	minp <- 0.95*min(PercG1[(n-max+1):n])
+#	maxp <- 1.05*max(PercG1[(n-max+1):n])
+        rg <- range(PercG1[(n - max + 1):n],na.rm=TRUE)
+        df <- diff(rg)
+        minp <- rg[1]-0.05*df
+        maxp <- rg[2]+0.05*df
+
 	plot(0:(max+1), c(minp,PercG1[(n-max+1):n],maxp), ylog=TRUE, type="n",axes=F,xlab="",ylab="", main=title)
 	
 	points(1:max, PercG1[(n-max+1):n],type="b", pch=16, col=var[(n-max+1):n])

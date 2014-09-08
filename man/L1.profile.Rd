@@ -68,11 +68,13 @@ for(i in c(4:6,10:12))
 imb0 <- L1.profile(LL$treated,LL, drop=c("treated","re78"))
 
 if(require(MatchIt)){
- m2 <- matchit(treated ~ black + hispanic + married + nodegree + u74 + u75 + education +
-  age + re74 + re75, data=LL, distance="logit")
+ m2 <- matchit(treated ~ black + hispanic + married + nodegree + 
+  u74 + u75 + education + age + re74 + re75, data=LL, 
+  distance="logit")
 
- m3 <- matchit(treated ~ black + hispanic + married + nodegree + u74 + u75 + education +
-  age + re74 + re75, data=LL, distance="mahalanobis")
+ m3 <- matchit(treated ~ black + hispanic + married + nodegree + 
+  u74 + u75 + education + age + re74 + re75, data=LL, 
+  distance="mahalanobis")
  
  L1.profile(LL$treated,LL, drop=c("treated","re78"), 
   weights=m2$w, add=TRUE, col="green", lty=2, useCP=imb0$CP)
@@ -86,8 +88,8 @@ m1 <- cem("treated", LL, drop="re78")
 L1.profile(LL$treated,LL, drop=c("treated","re78"), 
  weights=m1$w>0, add=TRUE, col="blue", lty=4, useCP=imb0$CP)
 
-legend(5, 0.9, legend=c("raw data", "pscore", "mahalanobis", "cem"), lty=1:4, 
- col=c("red", "green", "orange", "blue"))
+legend(5, 0.9, legend=c("raw data", "pscore", "mahalanobis", "cem"), 
+ lty=1:4, col=c("red", "green", "orange", "blue"))
 }
 }
 \keyword{ datagen }

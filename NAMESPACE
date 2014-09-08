@@ -1,7 +1,3 @@
-importFrom(combinat, combn)
-import(nlme)
-import(randomForest)
-import(lattice)
 export(cem)
 export(L1.meas)
 export(L1.profile)
@@ -38,6 +34,7 @@ S3method(print, cem.match.list)
 S3method(print, cem.att)
 S3method(print, selected.cem)
 S3method(summary, cem.att)
+# imports
 
 
 

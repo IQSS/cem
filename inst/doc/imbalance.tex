@@ -1,0 +1,70 @@
+\subsection{{\tt imbalance}: Calculates several imbalance measures}\label{ss:imbalance}
+\keyword{datagen}{imbalance}
+\begin{Description}\relax
+Calculates several imbalance measures for the original
+and matched data sets
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+imbalance(group, data, drop=NULL, breaks = NULL, weights)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{group}] the group variable
+\item[\code{data}] the data
+\item[\code{drop}] a vector of variable names in the data frame to ignore
+\item[\code{breaks}] a list of vectors of cutpoints used to calculate the L1
+measure. See Details.
+\item[\code{weights}] weights
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+This function calculates several imbalance measures.
+For numeric variables, the difference in means (under the column
+\code{statistic}), the difference in quantiles and the L1 measure is
+calculated. For categorical variables the L1 measure and the
+Chi-squared distance (under column \code{statistic}) is calculated.
+Column \code{type} reports either \code{(diff)} or \code{(Chi2)} to
+indicate the type of statistic being calculated.
+
+If \code{breaks} is not specified, the Scott automated bin calculation
+is used (which coarsens less than Sturges, which used in
+\code{\LinkA{cem}{cem}}).  Please refer to \code{\LinkA{cem}{cem}} help page. In
+this case, breaks are used to calculate the L1 measure.
+
+This function also calculate the global L1 imbalance measure. 
+If \code{breaks} is missing, the default rule to calculate cutpoints
+is the Scott's rule. 
+See \code{\LinkA{L1.meas}{L1.meas}} help page for details.
+\end{Details}
+\begin{Value}
+An object of class \code{imbalance} which is a list with the following
+two elements
+\begin{ldescription}
+\item[\code{tab}] Table of imbalance measures
+\item[\code{L1}] The global L1 measure of imbalance
+\end{ldescription}
+\end{Value}
+\begin{Author}\relax
+Stefano Iacus, Gary King, and Giuseppe Porro
+\end{Author}
+\begin{References}\relax
+Stefano Iacus, Gary King, Giuseppe Porro, ``Matching for
+Casual Inference Without Balance Checking,''
+http://gking.harvard.edu/files/abs/cem-abs.shtml
+\end{References}
+\begin{Examples}
+\begin{ExampleCode} 
+
+data(LL)
+
+todrop <- c("treated","re78")
+   
+imbalance(LL$treated, LL, drop=todrop)
+
+# cem match: automatic bin choice
+mat <- cem(treatment="treated", data=LL, drop="re78")
+\end{ExampleCode}
+\end{Examples}
+

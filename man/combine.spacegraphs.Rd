@@ -23,6 +23,7 @@ Inputs must be created using \code{\link{spacegraph}}.
 \author{Richard Nielsen}
 \seealso{ \code{\link{spacegraph}} }
 \examples{
+\dontrun{
 data(LL)
 
 sp1 <- spacegraph("treated", LL, drop="re78", M=5,
@@ -35,6 +36,6 @@ sp2 <- spacegraph("treated", LL, drop="re78", raw.profile=sp1$raw.profile,
 sp3 <- combine.spacegraphs(sp1,sp2)
 
 plot(sp3)
-
+}
 }
 \keyword{datagen}

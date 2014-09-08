@@ -1,7 +1,7 @@
 `relax.cem` <-
 function (obj, data, depth = 1, verbose = 1, L1.breaks = NULL, 
 plot = TRUE, fixed = NULL, shifts = NULL, minimal = NULL, 
-use.coarsened = TRUE, eval.imbalance=TRUE, ...) 
+use.coarsened = TRUE, eval.imbalance=TRUE, use.weights=FALSE, ...)
 {
     if (class(obj) != "cem.match") 
 	stop("obj must be of class `cem.match'")
@@ -116,9 +116,16 @@ use.coarsened = TRUE, eval.imbalance=TRUE, ...)
     tab$Relaxed <- "<start>"
     tab$var <- "<start>"
     IDX <- which(obj$matched)
-    if(eval.imbalance)
-	tab[1, "L1"] <- L1.meas(obj$groups[IDX], L1data[IDX, obj$vars], 
-							L1.breaks)$L1
+    if(eval.imbalance){
+        if(use.weights){
+            tab[1, "L1"] <- L1.meas(group=obj$groups[IDX],
+                  data=L1data[IDX, obj$vars],
+                  breaks=L1.breaks, weights=obj$w[IDX])$L1
+        } else {
+            tab[1, "L1"] <- L1.meas(group=obj$groups[IDX],
+             data=L1data[IDX, obj$vars], breaks=L1.breaks)$L1
+        }
+    }
     last <- 0
     k <- 1
     K.tab <- 2
@@ -151,10 +158,24 @@ use.coarsened = TRUE, eval.imbalance=TRUE, ...)
             mstrata <- find.strata(tmp.obj)$mstrata
             tmp.obj$mstrata <- mstrata
             tmp.obj$matched <- !is.na(mstrata)
+            if(use.weights){
+                tmp.obj$n <- dim(data)[1]
+                tmp.obj$treatment <- obj$treatment
+                tmp.obj$baseline.group <- obj$baseline.group
+                tmp.obj$tab <- cem.summary(obj=tmp.obj, verbose = verbose)
+                tmp.w <- cem.weights(tmp.obj)
+            }
             IDX <- which(tmp.obj$matched)
-            if(eval.imbalance)
-			tab[K.tab, "L1"] <- L1.meas(obj$groups[IDX], L1data[IDX, 
-										tmp.obj$vars], L1.breaks)$L1
+            if(eval.imbalance){
+                if(use.weights){
+                    tab[K.tab, "L1"] <- L1.meas(group=obj$groups[IDX],
+                    data=L1data[IDX, tmp.obj$vars], breaks=L1.breaks,
+                    weights=tmp.w[IDX])$L1
+                } else {
+                    tab[K.tab, "L1"] <- L1.meas(group=obj$groups[IDX],
+                    data= L1data[IDX, tmp.obj$vars], breaks=L1.breaks)$L1
+                }
+            }
             tab[K.tab, "var"] <- vna
             tmp.tab <- cem.summary(obj = tmp.obj, verbose = verbose)
             tab[K.tab, 1:(2 * obj$n.groups)] <- as.numeric(c(tmp.tab[2, 
