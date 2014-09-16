@@ -1,7 +1,9 @@
 k2k <- function(obj, data, method=NULL, mpower=2, verbose=0){
 		   nm <- NULL
+        if(is.null(obj$X))
+         stop("please first run cem() with option keep.all=TRUE")
 
-		 for(i in obj$mstrataID){
+        for(i in obj$mstrataID){
           idx <- which(obj$mstrata==i)
 		  tmp <- obj$groups[idx] 
 		  tr <- idx[which(tmp==obj$g.names[1])]

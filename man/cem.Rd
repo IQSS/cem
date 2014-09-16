@@ -88,6 +88,7 @@ which means random matching inside \code{cem} strata. For the Minkowski
 distance the power can be specified via the argument \code{mpower}'.
 For more information on \code{method != NULL}, refer to
 \code{\link{dist}} help page.
+If \code{k2k} is set to \code{TRUE} also \code{keep.all} is set to \code{TRUE}.
 
 By default, \code{cem} treats missing values as distinct categories and
 matches observations with missing values in the same variable in the

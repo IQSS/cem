@@ -745,11 +745,13 @@ which means random matching inside \code{cem} strata, an option that
 may reduce the chance for bias.  (For the Minkowski distance the power
 can be specified via the argument \code{mpower}.  For more information
 on \code{method != NULL}, refer to \code{dist} help page.)  
+The option \code{keep.all=TRUE} must be used in \code{cem} calls otherwise
+\code{k2k} will not work.
 
 Here is an example of this approach.  First, by running \code{cem}:
 
 <<echo=TRUE, print=FALSE>>=
-mat <- cem(treatment="treated",data=Le, drop="re78")
+mat <- cem(treatment="treated",data=Le, drop="re78",keep.all=TRUE)
 mat
 mat$k2k
 @

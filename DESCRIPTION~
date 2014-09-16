@@ -3,8 +3,8 @@ Type: Package
 Title: Coarsened Exact Matching
 Version: 1.1.13
 Author: Iacus, Stefano M., King, Gary, Porro, Giuseppe
-Depends: combinat, tcltk, lattice, nlme, MatchIt
-Suggests: Amelia(>= 1.2-0), randomForest
+Depends: combinat, tcltk, lattice, nlme
+Suggests: MatchIt, Amelia(>= 1.2-0), randomForest
 Maintainer: Stefano M. Iacus <stefano.iacus@unimi.it>
 Description: Implementation of the Coarsened Exact Matching algorithm
 License: GPL-2

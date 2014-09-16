@@ -68,7 +68,7 @@ imbspace.plot <- function(obj,group="1", data, explore=TRUE){
 	stop("obj must be of class `imbalance.space'")
 	
 	haveTCL <- interactive()
-	if(!require(tcltk)){
+	if(!capabilities("tcltk")){
 		haveTCL <- FALSE	
 		cat("\ntcltk support is absent")
 	}

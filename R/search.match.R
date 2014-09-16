@@ -1,7 +1,7 @@
 search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, useCP, ...)
 {
-	if(!require(MatchIt))
-	 stop("You need MatchIt package to use this tool")
+	#if(!require(MatchIt))
+	# stop("You need MatchIt package to use this tool")
 	
 	if(missing(data) | missing(treatment) | missing(useCP))
 		stop("One or more of these arguments are missing: treatment, data, useCP.")

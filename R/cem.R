@@ -25,7 +25,7 @@ function (treatment=NULL, data = NULL, datalist=NULL, cutpoints = NULL,
 {
     L1data <- data
 	L1datalist <- datalist
-	    
+    if(k2k)  keep.all <- TRUE
 	if(!is.null(grouping) & !is.null(names(grouping))){
       gn <- names(grouping)
       n.gn <- length(gn)

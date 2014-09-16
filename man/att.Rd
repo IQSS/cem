@@ -74,7 +74,7 @@ estimated model when availalble.
 data(LL)
 
 # cem match: automatic bin choice
-mat <- cem(treatment="treated",data=LL, drop="re78")
+mat <- cem(treatment="treated",data=LL, drop="re78", keep.all=TRUE)
 mat
 mat$k2k
 

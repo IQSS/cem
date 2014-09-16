@@ -39,7 +39,7 @@ import("tcltk")
 import("combinat")
 import("lattice")
 importFrom("nlme",lmeControl, lme, random.effects)
-importFrom("MatchIt",matchit)
+#importFrom("MatchIt",matchit)
 
 
 

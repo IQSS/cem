@@ -1227,7 +1227,7 @@ matchitspace <- function(treatment, data, R = 100, poly=2, randomgroups=FALSE,
 ## Note that it only works if there are 3 or more vars.
 
 enumerateInteractions <- function(mvars, poly=1){
-  library(combinat,quietly=TRUE)
+    #library(combinat,quietly=TRUE)
   ## interactions
   int <- combn(length(mvars),2)
   ## squared terms
@@ -2409,7 +2409,7 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 
 	
 	haveTCL <- interactive()
-	if(!require(tcltk)){
+	if(!capabilities("tcltk")){
 		haveTCL <- FALSE	
 		cat("\ntcltk support is absent")
 	}

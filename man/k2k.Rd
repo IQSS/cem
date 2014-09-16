@@ -31,7 +31,8 @@ distance the power can be specified via the argument \code{mpower}'.
 For more information on \code{method != NULL}, refer to
 \code{\link{dist}} help page.
 
-After \code{k2k} the weights of each matched observation are set to unity.
+After \code{k2k} the weights of each matched observation are set to unity. Please notice that option \code{keep.all=TRUE} must be used in \code{cem} calls
+otherwise \code{k2k} will not work.
 }
 \value{
   \item{obj}{an object of class \code{cem.match}}
@@ -44,7 +45,7 @@ After \code{k2k} the weights of each matched observation are set to unity.
 data(LL)
 
 # cem match: automatic bin choice
-mat <- cem(treatment="treated", data=LL, drop="re78")
+mat <- cem(treatment="treated", data=LL, drop="re78", keep.all=TRUE)
 mat
 mat$k2k
 
