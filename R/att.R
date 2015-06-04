@@ -158,7 +158,7 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
   if(class(obj)[1] == "cem.match"){
 
   if(mod=="randomForest"){
-   require(randomForest, quietly=TRUE)
+      #requireNamespace("randomForest", quietly=TRUE)
    out <- do.call(mod, list(formula=formula, data=data, subset= obj$matched==TRUE & obj$groups==obj$g.names[1],ntree=ntree))
    response <- all.vars(formula)[attr(terms(formula),"response")]
    tmp.data <- data

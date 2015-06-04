@@ -36,8 +36,9 @@ S3method(print, selected.cem)
 S3method(summary, cem.att)
 # imports
 import("tcltk")
-import("combinat")
+importFrom("combinat",combn, nCm)
 import("lattice")
+import("randomForest")
 importFrom("nlme",lmeControl, lme, random.effects)
 importFrom("MatchIt",matchit)
 
