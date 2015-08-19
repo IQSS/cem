@@ -11,6 +11,7 @@
 
 \usepackage{inputenc}
 
+
 % === graphic packages ===
 \usepackage{graphicx}
 \usepackage{epstopdf}
@@ -661,7 +662,7 @@ are matched)
 <<echo=TRUE, print=FALSE>>= 
 tab <- relax.cem(mat, Le, depth=1, perc=0.3) 
 @
-\begin{figure}[Ht]
+\begin{figure}[t]
 \begin{center}
 <<results=tex,echo=FALSE>>= 
 pdf("coarsen1.pdf", width=9, height=6, pointsize=10)
@@ -711,7 +712,7 @@ duplicated solutions are removed. The output can be seen in Figure
 <<echo=TRUE, print=FALSE>>=
 plot(tab, group="1", perc=0.35,unique=TRUE)
 @
-\begin{figure}[Ht]
+\begin{figure}[t]
 \begin{center}
 <<results=tex,echo=FALSE>>= 
 pdf("coarsen2.pdf", width=9, height=6, pointsize=10)
@@ -831,7 +832,7 @@ est3 <- att(mat, re78 ~ treated + re74 , data = LL)
 est3
 plot(est3, mat, LL, vars=c("education", "age", "re74", "re75"))
 @
-\begin{figure}[Ht]
+\begin{figure}[t]
 \begin{center}
 <<results=tex,echo=FALSE>>= 
 pdf("teff.pdf", width=9, height=6, pointsize=10)

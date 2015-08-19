@@ -41,8 +41,10 @@ import("lattice")
 import("randomForest")
 importFrom("nlme",lmeControl, lme, random.effects)
 importFrom("MatchIt",matchit)
-
-
+importFrom(grDevices, nclass.scott, rgb,   nclass.Sturges, nclass.FD, xy.coords)
+importFrom(stats, na.omit, runif, dist, terms, predict, median, weighted.mean, var, pnorm, update, coef, fitted, t.test, xtabs, logLik, deviance, pchisq, rmultinom, dpois, chisq.test, model.frame, model.matrix, as.formula, qnorm, glm, binomial, sd, cov, printCoefmat )
+importFrom(utils, txtProgressBar, setTxtProgressBar)
+importFrom(graphics, hist, par, plot, box, axis,  points, text,  identify, lines, mtext, abline)
 
 
 

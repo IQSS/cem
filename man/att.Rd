@@ -117,26 +117,29 @@ att(mat2, re78~treated, data=LL)
 # example with missing data
 # using multiply imputated data
 # we use Amelia for multiple imputation
-if(require(Amelia)){
- data(LL)
- n <- dim(LL)[1]
- k <- dim(LL)[2]
+\dontrun{
+
+ if(require(Amelia)){
+  data(LL)
+  n <- dim(LL)[1]
+  k <- dim(LL)[2]
 
 # we generate missing values in 30% of the rows of LL data
 # randomly in one colum per row
- LL1 <- LL
- idx <- sample(1:n, .3*n)
- invisible(sapply(idx, function(x) LL1[x,sample(2:k,1)] <<- NA))
+  LL1 <- LL
+  idx <- sample(1:n, .3*n)
+  invisible(sapply(idx, function(x) LL1[x,sample(2:k,1)] <<- NA))
 
 
- imputed <- amelia(LL1) 
- imputed <- imputed$imputations[1:5]
+  imputed <- amelia(LL1)
+  imputed <- imputed$imputations[1:5]
 
- mat <- cem("treated", datalist=imputed, data=LL1, drop="re78")
+  mat <- cem("treated", datalist=imputed, data=LL1, drop="re78")
 
- print(mat)
+  print(mat)
   
- att(mat, re78 ~ treated, data=imputed)
+  att(mat, re78 ~ treated, data=imputed)
+ }
 }
 }
 \keyword{multivariate}

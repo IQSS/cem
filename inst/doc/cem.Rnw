@@ -10,7 +10,8 @@
 \SweaveOpts{width=70}
 
 \usepackage{inputenc}
-
+\usepackage{fixltx2e}
+\usepackage{float}
 % === graphic packages ===
 \usepackage{graphicx}
 \usepackage{epstopdf}

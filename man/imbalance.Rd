@@ -63,6 +63,7 @@ See \code{\link{L1.meas}} help page for details.
   http://gking.harvard.edu/files/abs/cem-abs.shtml}
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \examples{ 
+\dontrun{
 
 data(LL)
 
@@ -72,5 +73,6 @@ imbalance(LL$treated, LL, drop=todrop)
 
 # cem match: automatic bin choice
 mat <- cem(treatment="treated", data=LL, drop="re78")
+}
 }
 \keyword{ datagen }

@@ -35,10 +35,12 @@ This tool is useful in combination with \code{\link{imbspace.plot}}.
 \author{Richard Nielsen}
 \seealso{ \code{\link{cemspace}} }
 \examples{
+\dontrun{
 data(LL)
 mod <- pscoreSelect( treated ~ age + education + black+ married + nodegree + 
  re74 + re75 + hispanic + u74 + u75, data=LL)
-print(mod) 
+print(mod)
+}
 }
 \keyword{datagen}
 

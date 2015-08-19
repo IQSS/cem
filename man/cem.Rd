@@ -140,6 +140,7 @@ data set has the same meaning in all, and is the same for all)
   http://gking.harvard.edu/files/abs/cem-abs.shtml}
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \examples{
+\dontrun{
 data(LL)
 
    
@@ -203,6 +204,7 @@ if(require(Amelia)){
 
 # ATT estimation
  out <- att(mat2, re78 ~ treated, data=imputed)
+}
 }
 }
 \keyword{multivariate}
