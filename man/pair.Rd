@@ -37,6 +37,7 @@ For more information on \code{method != NULL}, refer to
   http://gking.harvard.edu/files/abs/cem-abs.shtml}
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \examples{
+\dontrun{
 data(LL)
 
 # cem match: automatic bin choice
@@ -58,6 +59,7 @@ mat1 <- cem(data=LL[-1,], drop="re78")
 # we want a set of paired units but we have an odd number of units in the data
 psample <- pair(mat1, data=LL[-1,])
 table(psample$full.paired)
+}
 }
 \keyword{multivariate}
 \keyword{datagen}
