@@ -1453,7 +1453,7 @@ psm <- function(formula, data, ratio=1, caliper=0, linear.pscore=FALSE,rawCP){
   }
   mymod <- (glm(formula, data, family=(binomial(link="logit"))))
   
-  if(mymod$converged==F){break}
+  if(mymod$converged==F){return}
   ps <- mymod$fitted.values
   if(linear.pscore==T){
     ps <- log(ps/(1-ps))
@@ -2661,7 +2661,7 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 			valid <- try(eval(parse(text=tmpc)), silent = TRUE)
 			if( class(valid) == "try-error"){
 				cat(sprintf("\nError in call specification. Exiting.\n", tmpc) )
-				break
+                return
 			}
                   tmp.mat <- eval(parse(text= tclvalue(callInfo)))
                  
