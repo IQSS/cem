@@ -1,7 +1,7 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.19
+Version: 1.1.20
 Author: Iacus, Stefano M., King, Gary, Porro, Giuseppe
 Depends: tcltk, lattice
 Imports: MatchIt, combinat, randomForest, nlme

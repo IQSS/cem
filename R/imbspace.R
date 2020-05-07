@@ -166,6 +166,7 @@ M=250, raw.profile=NULL)
 			tmp.obj$n <- length(tmp.obj$matched)
             tmp.obj$treatment <- obj$treatment
 			tmp.obj$tab <- cem.summary(tmp.obj)
+            tmp.obj$baseline.group <- obj$baseline.group
 			tmp.obj$w <- cem.weights(tmp.obj)
             IDX <- which(tmp.obj$matched)
 

@@ -48,7 +48,7 @@ require(cem)
 data(LL)
 
 mat <- cem("treated", LL, drop=c("re78","treated"), 
- cut=list(age=4, edu=4, re74=3, re75=3))
+ cut=list(age=4, edu=4, re74=3, re75=3), keep.all=TRUE)
 mat
 
 imb.raw <- L1.profile(LL$treated, LL[, mat$vars], M=250, plot=FALSE)
