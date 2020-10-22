@@ -1,12 +1,19 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.20
-Author: Iacus, Stefano M., King, Gary, Porro, Giuseppe
+Version: 1.1.23
+Authors@R: c(person("Stefano M.", "Iacus", email = "stefano.iacus@ec.europa.eu", role = c("aut", "cre")),
+	person("Gary", "King", email = "king@harvard.edu", role = c("aut")),
+	person("Giuseppe", "Porro", email = "giuseppe.porro@uninsubria.it", role = c("aut")))
 Depends: tcltk, lattice
 Imports: MatchIt, combinat, randomForest, nlme
 Suggests: Amelia(>= 1.2-0)
-Maintainer: Stefano M. Iacus <stefano.iacus@unimi.it>
-Description: Implementation of the Coarsened Exact Matching algorithm.
+Maintainer: Stefano M. Iacus <stefano.iacus@ec.europa.eu>
+Description: Implementation of the Coarsened Exact Matching algorithm discussed 
+	along with its properties in
+        Iacus, King, Porro (2011) <DOI:10.1198/jasa.2011.tm09599>;
+	Iacus, King, Porro (2012) <DOI:10.1093/pan/mpr013> and
+	Iacus, King, Porro (2019) <DOI:10.1017/pan.2018.29>.
 License: GPL-2
-URL: http://gking.harvard.edu/cem/
+URL: https://gking.harvard.edu/cem
+
