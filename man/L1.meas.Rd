@@ -63,12 +63,17 @@ contain at least one observation per group.
   \item{breaks}{A list of cutpoints used to calculate the L1 measure}
   \item{LCS}{The numerical value of the Local Common Support proportion}
 }
-\references{Stefano Iacus, Gary King, Giuseppe Porro, ``Matching for
-  Casual Inference Without Balance Checking: Coarsened Exact Matching,''
-  http://gking.harvard.edu/files/abs/cem-abs.shtml}
+\references{
+Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+
+Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+	
+Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+}
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \examples{
 data(LL)
+set.seed(123)
 L1.meas(LL$treated,LL, drop=c("treated","re78"))
 }
 \keyword{ datagen }

@@ -1,10 +1,12 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.23
+Version: 1.1.24
 Authors@R: c(person("Stefano M.", "Iacus", email = "stefano.iacus@ec.europa.eu", role = c("aut", "cre")),
 	person("Gary", "King", email = "king@harvard.edu", role = c("aut")),
-	person("Giuseppe", "Porro", email = "giuseppe.porro@uninsubria.it", role = c("aut")))
+	person("Giuseppe", "Porro", email = "giuseppe.porro@uninsubria.it", role = c("aut")),
+	person("Richard", "Nielsen", email = "rnielsen@mit.edu", role = c("aut"))
+	)
 Depends: tcltk, lattice
 Imports: MatchIt, combinat, randomForest, nlme
 Suggests: Amelia(>= 1.2-0)

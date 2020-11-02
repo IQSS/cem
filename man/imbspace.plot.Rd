@@ -36,17 +36,21 @@ units matched.
   \item{tab}{an invisible object containing the selection of cem solutions and their
   coarsenings.}
 }
-\references{Stefano Iacus, Gary King, Giuseppe Porro, ``Matching for
-  Casual Inference Without Balance Checking: Coarsened Exact Matching,''
-  http://gking.harvard.edu/files/abs/cem-abs.shtml}
+\references{
+Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+
+Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+	
+Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+}
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \seealso{ \code{\link{imbspace}} }
 \examples{
-\dontrun{
+\donttest{
 require(cem)
 
 data(LL)
-
+set.seed(123)
 mat <- cem("treated", LL, drop=c("re78","treated"), 
  cut=list(age=4, edu=4, re74=3, re75=3), keep.all=TRUE)
 mat

@@ -94,15 +94,19 @@ effect of calling directly \code{relax.plot}.
   \item{tab}{an invisible object containing the tabs and the L1breaks
   used}
 }
-\references{Stefano Iacus, Gary King, Giuseppe Porro, ``Matching for
-  Casual Inference Without Balance Checking: Coarsened Exact Matching,''
-  http://gking.harvard.edu/files/abs/cem-abs.shtml}
+\references{
+Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+
+Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+	
+Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+}
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \seealso{ \code{\link{cem}} }
 \examples{
-\dontrun{
+\donttest{
 data(LL)
-
+set.seed(123)
 mat <- cem(treatment="treated",data=LL, drop="re78", keep.all=TRUE)
 mat
 tab <- relax.cem(mat, LL, depth=1, plot=FALSE)

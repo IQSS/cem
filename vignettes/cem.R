@@ -3,6 +3,7 @@
 ###################################################
 ### code chunk number 1: cem.Rnw:355-357
 ###################################################
+old.options <- options()
 options("digits"=4)
 options("width"=80)
 
@@ -306,4 +307,4 @@ mat1 <- cem(data=LL[-1,], drop="re78")
 psample <- pair(mat1, data=LL[-1,])
 table(psample$full.paired)
 
-
+options(old.options)

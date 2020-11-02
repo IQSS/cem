@@ -29,7 +29,12 @@ These two sets of treated and control units can be hardly matched.
 }
 \source{see references}
 \references{
-Lalonde, R. (1986) Evaluating the Econometric Evaluations 
-of Training Programs, \emph{American Economic Review}, 76, 604-620.
+Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+
+Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+	
+Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+
+Lalonde, R. (1986) \url{https://www.jstor.org/stable/1806062}
 }
 \keyword{datasets}

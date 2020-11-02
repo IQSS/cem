@@ -135,12 +135,19 @@ data set has the same meaning in all, and is the same for all)
   \item{tab}{summary table of matched by group}
   \item{imbalance}{NULL or a vector of imbalances. See Details.}
 }
-\references{Stefano Iacus, Gary King, Giuseppe Porro, ``Matching for
-  Casual Inference Without Balance Checking: Coarsened Exact Matching,''
-  http://gking.harvard.edu/files/abs/cem-abs.shtml}
+\references{
+Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+
+Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+	
+Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+	
+Shimazaki, Shinomoto (2007) \url{https://doi.org/10.1162/neco.2007.19.6.1503}
+}
+ 
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \examples{
-\dontrun{
+\donttest{
 data(LL)
 
    
@@ -185,7 +192,9 @@ if(require(Amelia)){
 
  LL1 <- LL
  idx <- sample(1:n, .3*n)
- invisible(sapply(idx, function(x) LL1[x,sample(2:k,1)] <<- NA))
+ for(i in idx){
+  LL1[i,sample(2:k,1)] <- NA
+ }
 
  imputed <- amelia(LL1,noms=c("black","hispanic","treated","married",
                               "nodegree","u74","u75")) 

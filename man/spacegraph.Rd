@@ -59,12 +59,12 @@ The \code{spacegraph} function currently calculates two measures of balance for 
   \item{val}{an object of class \code{spacegraph} that can be used directly with \code{plot()} to produce a spacegraph.}
 }
 
-\author{Richard Nielsen, Stephano Iacus, Gary King, and Guiseppe Porro}
+\author{Richard Nielsen, Stefano Iacus, Gary King, and Giuseppe Porro}
 \seealso{ \code{\link{combine.spacegraphs}} }
 \examples{
-\dontrun{
+\donttest{
 data(LL)
-
+set.seed(123)
 sp <- spacegraph("treated", LL, drop="re78", M=5,
                   R=list(cem=5,psm=5, mdm=5))
 

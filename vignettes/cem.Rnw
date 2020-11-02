@@ -2,14 +2,14 @@
 %\usepackage{/usr/lib64/R/share/texmf/Rd}
 %\usepackage{/usr/lib64/R/share/texmf/Sweave}
 %\usepackage{/usr/lib64/R/share/texmf/upquote}
-
+\usepackage[utf8x]{inputenc} 
 \usepackage{Rd}
 \usepackage{Sweave}
 \usepackage{upquote}
 
 \SweaveOpts{width=70}
 
-\usepackage{inputenc}
+%\usepackage{inputenc}
 
 
 % === graphic packages ===
@@ -48,17 +48,13 @@ citebordercolor={0 0 1}]{hyperref}
 
 \title{CEM: Software for Coarsened Exact Matching\thanks{Forthcoming,
     \emph{Journal of Statistical Software}}}
-\author{Stefano M.\ Iacus\thanks{Department of Economics, Business and
-    Statistics, University of Milan, Via Conservatorio 7, I-20124
-    Milan, Italy; stefano.iacus@unimi.it}
+\author{Stefano M.\ Iacus\thanks{European Commission, Joint Research Centre, Ispra (VA), Italy; stefano.iacus@ec.europa.eu.}
 \and %
-Gary King\thanks{Institute for Quantitative Social Science, 1737
-  Cambridge Street, Harvard University, Cambridge MA 02138;
-  \url{http://GKing.harvard.edu}, king@harvard.edu, (617) 495-2027.}
+Gary King\thanks{Institute for Quantitative Social Science, Harvard University, Cambridge MA, USA;
+  \url{http://GKing.harvard.edu}, king@harvard.edu.}
 \and %
-Giuseppe Porro\thanks{Department of Economics and Statistics,
-  University of Trieste, P.le Europa 1, I-34127 Trieste, Italy;
-  giuseppe.porro@econ.units.it.} }
+Giuseppe Porro\thanks{DiDEC Dipartimento di Diritto, Economia e Culture, Università dell'Insubria, Como, Italy;
+  giuseppe.porro@uninsubria.it.} }
 
 % rbuild: replace 'Version ' '\\' Version
 \date{Version \\ \today}
@@ -354,6 +350,7 @@ pre-treatment covariates were the same in the treatment and control
 groups:
 
 <<echo=FALSE, print=FALSE>>=
+old.options <- options()
 options("digits"=4)
 options("width"=80)
 @
@@ -979,8 +976,9 @@ mat1 <- cem(data=LL[-1,], drop="re78")
 psample <- pair(mat1, data=LL[-1,])
 table(psample$full.paired)
 @
-
-
+<<echo=FALSE, print=FALSE>>=
+options(old.options)
+@
 %\clearpage
 
 %\section{Reference to CEM's Functions}

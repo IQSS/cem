@@ -23,9 +23,9 @@ Inputs must be created using \code{\link{spacegraph}}.
 \author{Richard Nielsen}
 \seealso{ \code{\link{spacegraph}} }
 \examples{
-\dontrun{
+\donttest{
 data(LL)
-
+set.seed(123)
 sp1 <- spacegraph("treated", LL, drop="re78", M=5,
                   R=list(cem=5,psm=5, mdm=0))
 

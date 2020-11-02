@@ -1,8 +1,5 @@
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# 2006 Author Hideaki Shimazaki
-# Department of Physics, Kyoto University
-# shimazaki at ton.scphys.kyoto-u.ac.jp
-# Please feel free to use/modify/distribute this program.
+# Adapted by Stefano M. Iacus from 
+# Neural Computation 2007 19:6, 1503-1527
 nclass.ss <- function(x){
 	N <- 2:100
 	C <- numeric(length(N))
@@ -18,12 +15,4 @@ nclass.ss <- function(x){
 	}
 	idx <- which.min(C)
     N[idx]
-#	optD <- D[idx]
-#
-#	edges <- seq(min(x),max(x),length=N[idx])
-#	h = hist(x, breaks = edges )
-#	rug(x)
-#
-#	return(h)
-#    edges
 }

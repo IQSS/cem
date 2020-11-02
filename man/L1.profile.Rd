@@ -55,12 +55,17 @@ A \code{plot} method exists for the returned object.
   An invisible object of class \code{L1profile} which contains a named list of coarsenings and 
   values of the L1 measure for each coarsening.
 }
-\references{Stefano Iacus, Gary King, Giuseppe Porro, ``Matching for
-  Casual Inference Without Balance Checking: Coarsened Exact Matching,''
-  http://gking.harvard.edu/files/abs/cem-abs.shtml}
+\references{
+Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+
+Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+	
+Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+}
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \examples{
-\dontrun{
+\donttest{
+set.seed(123)
 data(LL)
 for(i in c(4:6,10:12))
  LL[[i]] <- factor(LL[[i]])
@@ -72,15 +77,17 @@ if(require(MatchIt)){
   u74 + u75 + education + age + re74 + re75, data=LL, 
   distance="logit")
 
- m3 <- matchit(treated ~ black + hispanic + married + nodegree + 
+ m3 <- try(matchit(treated ~ black + hispanic + married + nodegree + 
   u74 + u75 + education + age + re74 + re75, data=LL, 
-  distance="mahalanobis")
+  distance="mahalanobis"), TRUE)
  
  L1.profile(LL$treated,LL, drop=c("treated","re78"), 
   weights=m2$w, add=TRUE, col="green", lty=2, useCP=imb0$CP)
 
- L1.profile(LL$treated,LL, drop=c("treated","re78"), 
-  weights=m3$w, add=TRUE, col="orange", lty=3, useCP=imb0$CP)
+ if(class(m3)[1]!="try-error"){
+   L1.profile(LL$treated,LL, drop=c("treated","re78"), 
+    weights=m3$w, add=TRUE, col="orange", lty=3, useCP=imb0$CP)
+    }
 }
 
 m1 <- cem("treated", LL, drop="re78")

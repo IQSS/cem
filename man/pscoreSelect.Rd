@@ -30,12 +30,20 @@ This tool is useful in combination with \code{\link{imbspace.plot}}.
 \value{
   \item{val}{an invisible object of class \code{list}.}
 }
-\references{Guido Imbens, Donald Rubin, ``Causal Inference'', Chapter 13,
-  forthcoming.}
+\references{
+Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+
+Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+	
+Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+
+Imbens,  Rubin (2015)  \url{https://doi.org/10.1017/CBO9781139025751}
+}
 \author{Richard Nielsen}
 \seealso{ \code{\link{cemspace}} }
 \examples{
-\dontrun{
+\donttest{
+set.seed(123)
 data(LL)
 mod <- pscoreSelect( treated ~ age + education + black+ married + nodegree + 
  re74 + re75 + hispanic + u74 + u75, data=LL)
