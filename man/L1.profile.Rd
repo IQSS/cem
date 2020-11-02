@@ -7,7 +7,8 @@ Calculates L1 distance for different coarsenings
 \usage{
 L1.profile(group, data, drop = NULL, min.cut = 2, max.cut = 12, 
 weights, plot = TRUE, add = FALSE, col = "red", 
-lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE)
+lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE,
+verbose=1)
 }
 \arguments{
   \item{group}{the group variable}
@@ -27,6 +28,8 @@ lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE)
   \item{grouping}{named list, each element of which is a list of
   groupings for a single categorical variable. See Details.}
   \item{progress}{if \code{TRUE}, feedback on progress is given. See Details.}
+   \item{verbose}{integer, controls level of output.}
+ 
 }
 \details{
   The L1 measure depends on the coarsening chosen to calculate it, and

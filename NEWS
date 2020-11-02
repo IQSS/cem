@@ -1,4 +1,4 @@
-NEWS in CEM version 1.1.25
+NEWS in CEM version 1.1.27
 * added this NEWS file
 * fixed Authors@R field adding Richard Nielesen in DESCRIPTION
 * added references to Shimazaki and Shinomoto (2007) in cem.Rd
@@ -13,4 +13,6 @@ NEWS in CEM version 1.1.25
 * fixed options() changes on finishing on the vignette inst/doc/cem.R[nw]
 * captured error in man page with random selection of data that
   prevented test to pass
+* fixed control for cat() statements through the verbose argument to 
+  functions
 * fingers crossed for CRAN approval

@@ -5,13 +5,14 @@
 Plot of imbalance space diagnostic tool for CEM
 }
 \usage{
-imbspace.plot(obj, group="1", data, explore=TRUE)
+imbspace.plot(obj, group="1", data, explore=TRUE, verbose=1)
 }
 \arguments{
   \item{obj}{an object of class \code{imbalance.space}}
   \item{group}{character string denoting group id. Defaults to \code{"1"}.}
   \item{data}{data for running additional matching solutions.}
   \item{explore}{if \code{TRUE} the user can interact and find new solutions.}
+  \item{verbose}{integer, controls output.}
 }
 
 \details{

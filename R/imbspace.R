@@ -1,7 +1,7 @@
 `imbspace` <-
 function (obj, data, depth = 1, L1.breaks = NULL, 
 plot = TRUE, fixed = NULL, minimal = 1, maximal = 6,
-M=250, raw.profile=NULL) 
+M=250, raw.profile=NULL, verbose=1) 
 {
     if (class(obj) != "cem.match") 
 	stop("obj must be of class `cem.match'")
@@ -93,7 +93,8 @@ M=250, raw.profile=NULL)
 	medianCP <- NULL	
 
 	if(is.null(raw.profile)){
-	 cat("\nCalculating L1 profile for the raw data...\n")
+	 if(verbose>=1)
+	   cat("\nCalculating L1 profile for the raw data...\n")
 	 imb0 <- L1.profile(obj$groups, data[, obj$vars], M=M, plot=FALSE)
      medianL1 <- median(imb0$L1)
 	 medianCP <- imb0$CP[[ which(imb0$L1>medianL1)[1] ]]
@@ -102,7 +103,7 @@ M=250, raw.profile=NULL)
 		medianL1 <- raw.profile$medianL1
 		medianCP <- raw.profile$medianCP
 	}
-	
+	if(verbose>=1)
     cat(sprintf("Executing %d different relaxations\n", n.comb))
     tab <- as.data.frame(matrix(NA, n.comb + 2, 2 * obj$n.groups + 
 								2 + 1))

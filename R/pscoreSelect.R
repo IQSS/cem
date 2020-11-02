@@ -18,7 +18,7 @@
   ################################################################################
 
 
-pscoreSelect <- function(formula, data, C.L=2*(pnorm(-1,0,1)), C.Q=0.1){
+pscoreSelect <- function(formula, data, C.L=2*(pnorm(-1,0,1)), C.Q=0.1, verbose=1){
 
     ## extract the treatment and possible control variables
 
@@ -44,7 +44,8 @@ pscoreSelect <- function(formula, data, C.L=2*(pnorm(-1,0,1)), C.Q=0.1){
   current.formula <- base.formula
   current.model <- (glm(as.formula(noquote(current.formula)), family="binomial", data=dat))
 
-  cat("\nTesting main effects\n")
+  if(verbose>=1)
+    cat("\nTesting main effects\n")
   for(i in 1:length(covariates)){
     if(i>i) 
      setTxtProgressBar(pb, i)	
@@ -105,7 +106,8 @@ pscoreSelect <- function(formula, data, C.L=2*(pnorm(-1,0,1)), C.Q=0.1){
     ## "current.formula" is the final formula from the previous section
   current.model <- (glm(as.formula(noquote(current.formula)), family="binomial", data=dat))
 
-  cat("\nTesting interactions\n")
+  if(verbose>=1)
+    cat("\nTesting interactions\n")
 
   pb <- txtProgressBar(min = 1, max = length(int.sqr.names), initial = 1, style = 3)
 

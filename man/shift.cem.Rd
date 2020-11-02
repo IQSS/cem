@@ -5,7 +5,7 @@
 Diagnostic tools for CEM. Applies leftward and rightward shifts of the cutpoints.
 }
 \usage{
-shift.cem(obj, data, shifts=NULL, verbose=0, plot=TRUE)
+shift.cem(obj, data, shifts=NULL, verbose=1, plot=TRUE)
 }
 \arguments{
   \item{obj}{and object of class cem}

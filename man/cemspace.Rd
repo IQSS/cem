@@ -7,11 +7,13 @@ Exploration tool for CEM
 \usage{
 cemspace(treatment=NULL, data = NULL, R=100, grouping = NULL, drop=NULL,
 L1.breaks = NULL, L1.grouping=NULL, plot = TRUE, fixed = NULL, 
-minimal = 1, maximal = 5, M=250, raw.profile=NULL, keep.weights=FALSE) 
+minimal = 1, maximal = 5, M=250, raw.profile=NULL, keep.weights=FALSE,
+verbose=1) 
 }
 \arguments{
   \item{treatment}{character, name of the treatment variable.}
   \item{data}{a data.frame.}
+  \item{verbose}{integer, controls output.}
   \item{R}{number of possible random coarsening for the CEM.}
   \item{grouping}{named list, each element of which is a list of
   groupings for a single categorical variable. For more details see \code{\link{cem}}.}

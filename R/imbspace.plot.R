@@ -59,7 +59,7 @@ print.selected.cem <- function(x, ...){
 
 
 
-imbspace.plot <- function(obj,group="1", data, explore=TRUE){
+imbspace.plot <- function(obj,group="1", data, explore=TRUE, verbose=1){
 	if(!interactive() | !explore){
 		imbspace.plot2(obj, group)
 		return(NULL)	
@@ -75,7 +75,7 @@ imbspace.plot <- function(obj,group="1", data, explore=TRUE){
 	haveTCL <- interactive()
 	if(!capabilities("tcltk")){
 		haveTCL <- FALSE	
-		cat("\ntcltk support is absent")
+		warning("\ntcltk support is absent")
 	}
 	
 	if(haveTCL){
@@ -170,21 +170,22 @@ imbspace.plot <- function(obj,group="1", data, explore=TRUE){
 		
 		OnOK <- function(){
 			other.args <- NULL
-			cat("\n... running new cem...\n")
+			if(verbose>=1)
+			  cat("\n... running new cem...\n")
 			imE$n.tmp.br <- length(imE$tmp.br)
 			for(i in 1:imE$n.tmp.br){
 				vv <- names(imE$tmp.br)[i]
 				tmpc <- tclvalue( tcvars[[i]] )
 				imE$new.br[[i]] <- try(eval(parse(text=tmpc)), silent = TRUE)
 				if( class(imE$new.br[[i]]) == "try-error"){
-					cat(sprintf("\nError in settings cutpoints of variable << %s >>:\n\n >> %s <<\n\n Using original ones.\n", vv, tmpc) )
+					warning(sprintf("\nError in settings cutpoints of variable << %s >>:\n\n >> %s <<\n\n Using original ones.\n", vv, tmpc) )
 				  imE$new.br[[i]] <- imE$tmp.br[[i]] 
 				}
 			}
 			tmpc <- tclvalue( tcvars[[imE$n.tmp.br+1]] )
 			other.args <- try(eval(parse(text=tmpc)), silent = TRUE)
 			if( class(other.args) == "try-error"){
-				cat(sprintf("\nError in additional CEM arguments specification. Ignoring them.\n", tmpc) )
+				warning(sprintf("\nError in additional CEM arguments specification. Ignoring them.\n", tmpc) )
 				other.args <- NULL 
 			} else 
 			 other.args <- tmpc

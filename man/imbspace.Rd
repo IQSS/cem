@@ -7,7 +7,7 @@ Diagnostic tools for CEM
 \usage{
 imbspace(obj, data, depth = 1, L1.breaks = NULL, 
 plot = TRUE, fixed = NULL, minimal = 1, maximal = 6,
-M=250, raw.profile=NULL) 
+M=250, raw.profile=NULL, verbose=1) 
 }
 \arguments{
   \item{obj}{an object of class \code{cem.match}}
@@ -26,6 +26,8 @@ M=250, raw.profile=NULL)
   \item{M}{number of possible random coarsening for the L1 measure}
   \item{raw.profile}{and object of class \code{L1profile}. If passed, the \code{L1.breaks} are
   ignored.}
+   \item{verbose}{integer, controls output.}
+ 
 }
 
 \details{

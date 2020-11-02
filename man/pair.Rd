@@ -5,7 +5,7 @@
 Produces a paired sample out of a CEM match solution
 }
 \usage{
-pair(obj, data, method=NULL, mpower=2, verbose=0)
+pair(obj, data, method=NULL, mpower=2, verbose=1)
 }
 \arguments{
   \item{obj}{an object as output from \code{cem}}

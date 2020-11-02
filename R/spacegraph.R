@@ -4,7 +4,7 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
     L1.grouping = NULL, fixed = NULL, minimal = 1, maximal = 15, 
     M = 100, raw.profile = NULL, keep.weights = FALSE, progress = TRUE, 
     rgrouping = FALSE, groups = NULL, psmpoly = 1, mdmpoly = 1, 
-    other.matches = NULL, heuristic = FALSE, linear.pscore = FALSE) 
+    other.matches = NULL, heuristic = FALSE, linear.pscore = FALSE,verbose=1) 
 {
     if (nrow(na.omit(data)) != nrow(data)) 
         print("Missing values may lead to errors!")
@@ -84,7 +84,8 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
     }
     if (is.null(raw.profile)) {
         if (is.null(L1.breaks)) {
-            cat("\nCalculating L1 profile for the raw data...\n")
+            if(verbose>=1)
+              cat("\nCalculating L1 profile for the raw data...\n")
             imb0 <- L1.profile(groups, data, drop = treatment, 
                 M = M, plot = FALSE, progress = progress)
             medianL1 <- median(imb0$L1)
@@ -187,15 +188,17 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
     newcut <- vector(nv, mode = "list")
     names(newcut) <- mnames
     if (R$cem > 0) {
-        cat(sprintf("Executing %d different random CEM solutions\n", 
+        if(verbose>=1)
+          cat(sprintf("Executing %d different random CEM solutions\n", 
             R$cem))
-        if (progress == T & R$cem > 1) {
+        if (progress == TRUE & R$cem > 1 & interactive()) {
             pb <- txtProgressBar(min = 1, max = R$cem, initial = 1, 
                 style = 3)
         }
         for (r in 1:R$cem) {
             if (progress == T & R$cem > 1) {
-                setTxtProgressBar(pb, r)
+                if(interactive())
+                  setTxtProgressBar(pb, r)
             }
             for (i in 1:nv) newcut[[i]] <- sample(b.seq[[i]], 
                 1)
@@ -263,7 +266,7 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
             }
             tab[r + 1, "Method"] <- "cem"
         }
-        if (progress == T & R$cem > 1) {
+        if (progress == TRUE & R$cem > 1 & interactive()) {
             close(pb)
         }
     }
@@ -274,6 +277,7 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
         if (length(g.names) > 2) {
             stop("PSM requires a dichotomous treatment")
         }
+      if(verbose>=1)
         cat(sprintf("Executing %d different random PSM solutions\n", 
             R$psm))
         myps <- psmspace(treatment = treatment, data = data, 
@@ -287,7 +291,8 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
         if (length(g.names) > 2) {
             stop("MDM requires a dichotomous treatment")
         }
-        cat(sprintf("Executing %d different random MDM solutions\n", 
+        if(verbose>=1)
+          cat(sprintf("Executing %d different random MDM solutions\n", 
             R$mdm))
         mymdm <- mdmspace(treatment = treatment, data = data, 
             R = R$mdm, poly = mdmpoly, randomgroups = rgrouping, 
@@ -297,7 +302,8 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
         tab <- rbind(tab, mymdm$tab)
     }
     if (R$matchit > 0) {
-        cat(sprintf("Executing %d different random MatchIt solutions\n", 
+        if(verbose>=1)
+          cat(sprintf("Executing %d different random MatchIt solutions\n", 
             R$matchit))
         mymatchit <- matchitspace(treatment = treatment, data = data, 
             R = R$matchit, poly = psmpoly, randomgroups = rgrouping, 
@@ -306,19 +312,20 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
         tab <- rbind(tab, mymatchit$tab)
     }
     if (!is.null(other.matches)) {
-        cat(sprintf("Calculating L1 for %d solutions provided by the user\n", 
+        if(verbose>=1)
+          cat(sprintf("Calculating L1 for %d solutions provided by the user\n", 
             length(other.matches)))
         rtab <- as.data.frame(matrix(NA, length(other.matches), 
             2 * n.groups + 6))
         colnames(rtab) <- c(paste("G", g.names, sep = ""), paste("PercG", 
             g.names, sep = ""), "ML1", "Mdiff", "Mdisc", "Relaxed", 
             "Method", "Call")
-        if (progress == T) {
+        if (progress == TRUE & interactive()) {
             pb <- txtProgressBar(min = 0, max = length(other.matches), 
                 initial = 0, style = 3)
         }
         for (i in 1:length(other.matches)) {
-            if (progress == T) {
+            if (progress == TRUE & interactive()) {
                 setTxtProgressBar(pb, i)
             }
             mm <- other.matches[[i]]
@@ -357,7 +364,7 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
             rtab[i, "Method"] <- as.character(mm$method)[1]
             rtab[i, "Call"] <- as.character(mm$method)[1]
         }
-        if (progress == T) {
+        if (progress == TRUE & interactive()) {
             close(pb)
         }
         tab <- rbind(tab, rtab)
@@ -411,459 +418,7 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
 
 
 
-`spacegraphold` <-
-function (treatment=NULL, data = NULL, R=list("cem"=50,"psm"=0,"mdm"=0,"matchit"=0),
-    grouping = NULL, drop=NULL,
-    L1.breaks = NULL, L1.grouping=NULL, fixed = NULL, 
-    minimal = 1, maximal = 15, M=100, 
-    raw.profile=NULL, keep.weights=FALSE, progress=TRUE,
-    rgrouping=FALSE, groups=NULL, psmpoly=1, mdmpoly=1,
-    other.matches=NULL, heuristic=FALSE, linear.pscore=FALSE) 
-{
 
-    
-    if (nrow(na.omit(data)) != nrow(data))
-       print("Missing values may lead to errors!")
-
-    #if (nrow(na.omit(data)) != nrow(data) & R$matchit > 0) ## chokes if no R$matchit is specified
-    #   stop("Cannot use MatchIt with missing data.")
-
-    if (!treatment %in% names(data))
-       stop("Treatment is not in the specified data.  Check spelling.")
-
-    if (sum(drop %in% names(data)) != length(drop))
-       stop("Variables to drop do not appear in the data. Check spelling.")
-
-    if (length(names(data)[!names(data) %in% c(drop,treatment)]) <=3){
-      if("psm" %in% names(R) & (R$psm>0)){
-       stop("Must match with 4 or more variables for PSM, MDM, or MatchIt.")
-      }
-      if("mdm" %in% names(R) & (R$mdm>0)){
-       stop("Must match with 4 or more variables for PSM, MDM, or MatchIt.")
-      }
-      if("matchit" %in% names(R) & (R$matchit>0)){
-       stop("Must match with 4 or more variables for PSM, MDM, or MatchIt.")
-      }
-    }
-       
-    if (!is.null(raw.profile) & class(raw.profile) != "L1profile") 
-	 stop("raw.profile must be of class `L1profile'")
-
-    if (!is.list(R))
-         stop("R must be supplied as a list.  Ex: R = list(cem=100)")
-
-    if (sum(names(R) %in% c("cem","psm","mdm","matchit") == F) > 0)
-         stop("names for R must be cem, mdm, psm, or matchit. Ex: R = list(cem=5, mdm=5, psm=5)")
-
-    ## As of 13 July 2011, I hardcode the balance metric so that it
-    ## always does both.  This could be undone and it could be listed
-    ## as an argument taking "L1", "mdiff", "mdisc", or "all", but the problem
-    ## was that I then couldn't do na.omit on the table to do the
-    ## plotting.  I have to do some na.omitting because some of the
-    ## cems have no obs, and thus no L1.
-    balance.metric <- "all"
-
-    gn <- NULL
-    if (!is.null(grouping) & !is.null(names(grouping))) {
-        gn <- names(grouping)
-        n.gn <- length(gn)
-        for (g in 1:n.gn) {
-            if (!is.null(data)) 
-			data[[gn[g]]] <- group.var(data[[gn[g]]], grouping[[g]])
-        }
-    }
-
-    if(!is.null(other.matches)){
-      if(!is.list(other.matches)){stop("other.matches must be a list of data frames")}
-      for(i in 1:length(other.matches)){
-        mm <- other.matches[[i]]
-        if(!is.data.frame(mm)){stop("other.matches must be a list of data frames")}
-        if(sum(names(mm) ==
-         c("id","weight","method")) != 3){stop("other.matches must be a list of dataframes, with names: id, weigth, method.  See the help file for an example.")}
-      }
-    }
-
-    if(sum(names(table(data[[treatment]])) == as.character(c(0,1))) != 2){
-      stop("Treatment must be 0, 1 for now: issue is rcaliper draw in psmspace and mdmspace")
-    }
-
-
-        ## fill in the missing elements of R if not specified
-        rnames <- c("cem","psm","mdm","matchit")
-        for(i in rnames){
-          if(is.null(R[[i]])){R[[i]] <- 0}
-        }       
-
-        original.data <- data
-	imb0 <- NULL
-	medianL1 <- NULL
-	medianCP <- NULL	
-
-	drop <- unique(drop)
-	dropped <- match(drop, colnames(data))
-	dropped <- dropped[!is.na(dropped)]
-	
-	if(length(dropped)>0) 
-	 data <- data[-dropped]
-	vnames <- colnames(data)
-
-	if(!is.null(treatment)){
-		groups <- as.factor(data[[treatment]])
-        idx <- match(treatment, colnames(data))
-		if(length(idx)>0)
-		 vnames <- vnames[-idx]
-	}
-	
-	if(is.null(raw.profile)){
-		if(is.null(L1.breaks)){
-		 cat("\nCalculating L1 profile for the raw data...\n")
-		 imb0 <- L1.profile(groups, data, drop=treatment, M=M,
-                                    plot=FALSE, progress=progress)
-		 medianL1 <- median(imb0$L1)
-		 medianCP <- imb0$CP[[ which(imb0$L1 >= medianL1)[1] ]]
-		 medianGR <- imb0$GR[[ which(imb0$L1 >= medianL1)[1] ]]
-		} else {
-		 medianL1 <- L1.meas(groups, data, drop=treatment, breaks=L1.breaks, grouping=L1.grouping)$L1
-		 medianCP <- L1.breaks
-		 medianGR <- L1.grouping	
-		}
-	} else {
-		imb0 <- raw.profile
-		medianL1 <- raw.profile$medianL1
-		medianCP <- raw.profile$medianCP
-		medianGR <- raw.profile$medianGR
-	}
-
-
-      #######################################################
-      ## Inserting Mahalanobis matching discrepancy here
-      if(balance.metric == "mdisc" | balance.metric=="all"){
-        ff <- as.formula(paste(treatment,"~",paste(vnames,collapse="+")))
-        try(alldist <- mdistfun(ff,data), silent=T)
-        if(exists("alldist")==F){
-          alldist <- mdistfun2(ff,data)
-        }  
-      }
-    
-      #######################################################
-
-        
-	mnames <- vnames
-	if(!is.null(gn)){
-	 idx <- match(gn, vnames)
-	 if(length(idx)>0)
-	  mnames <- mnames[-idx] 
-	}
-
-	if (!is.null(fixed)) {
-        idx <- match(fixed, vnames)
-        if(length(idx) > 0) 
-		 mnames <- mnames[-idx]
-    }
-	
-    nv <- length(mnames)
-    v.num <- 1:nv
-
-
-    b.seq <- vector(nv, mode = "list")
-    names(b.seq) <- mnames
-	tmp.min <- 2
-	tmp.max <- 7
-	if(!is.list(minimal)){
-	 tmp.min <- minimal+1
-	 minimal <- vector(nv, mode="list")
-	 for (i in v.num) 
-	  minimal[[i]] <- tmp.min
-	}
-	if(!is.list(maximal)){
-		tmp.max <- maximal+1
-		maximal <- vector(nv, mode="list")
-		for (i in v.num) 
-		maximal[[i]] <- tmp.max
-	}
-    for (i in v.num) {
-		vna <- mnames[i]
-		min.br <- tmp.min
-		max.br <- tmp.max
-		
-		nuval <- length(unique(data[[vna]]))
-
-        if( (nuval==2) | !(is.numeric(data[[vna]]) | is.integer(data[[vna]]) | is.logical(data[[vna]])) )
-			max.br <- nuval+1
-		
-		if (!is.null(minimal[[vna]]))  
-			min.br <- minimal[[vna]] + 1
-		min.br <- max(tmp.min, min.br)
-		if (!is.null(maximal[[vna]])) 
-			max.br <- maximal[[vna]] + 1
-		max.br <- min(tmp.max, max.br)
-		b.seq[[i]] <- min.br:max.br
-    }
-    relax <- NULL
-
-	
-	g.names <- levels(groups)
-	n.groups <- length(g.names)
-
-
-    tab <- as.data.frame(matrix(NA, R$cem + 1, 2 * n.groups + 6))
-
-    colnames(tab) <- c(paste("G", g.names, sep = ""), 
-    					   paste("PercG", g.names, sep
-                                                 = ""), "ML1","Mdiff",
-                                           "Mdisc",
-                                           "Relaxed", "Method","Call")
-
-	n.coars <- dim(tab)[1]
-	coars <- vector(n.coars, mode="list")
-	weights <- NULL
-	if(keep.weights)
-	 weights <- vector(n.coars, mode="list")
-
-	tab[1, 1:n.groups] <- as.numeric(table(groups))
-    tab[1, (n.groups + 1):(2 * n.groups)] <- 100
-    tab$Relaxed[1] <- "<raw>"
-	coars[[1]] <- NULL
-	tab[1, "ML1"] <- medianL1
-      tab[1, "Mdiff"] <- mdiff(caliperdat=data,alldat=data,mvars=names(data)[-which(names(data) %in% treatment)],tvar=treatment, wt=NULL)
-      tab[1, "Mdisc"] <- mdisc(caliperdat=data,adist=alldist, wt=NULL)
-        tab[1, "Method"] <- "raw"
-        tab[1, "Call"] <- "none"
-
-    
-	newcut <- vector(nv, mode="list")
-    names(newcut) <- mnames
-
-    if(R$cem>0){
-      cat(sprintf("Executing %d different random CEM solutions\n", R$cem))
-
-      if(progress==T & R$cem>1){pb <- txtProgressBar(min = 1, max = R$cem, initial = 1, style = 3)}
-
-        for (r in 1:R$cem) {
-		if(progress==T & R$cem>1){setTxtProgressBar(pb, r)}
-		for(i in 1:nv)
-			newcut[[i]] <- sample(b.seq[[i]], 1) 
-
-            if(!rgrouping)
-		    obj <- cem(treatment, data, cutpoints=newcut, eval.imbalance=FALSE)
-
-            if(rgrouping){
-                grps <- do.random.groups2(data, groups, tvar=treatment)$grouping
-                obj <- cem(treatment, data, 
-                           cutpoints=newcut, eval.imbalance=FALSE, grouping = grps)
-            } 
-
-                ## reconstruct the call
-                cpholder <- rep(NA,length(obj$breaks))
-                for(ii in 1:length(obj$breaks)){
-                  cpholder[ii] <-paste(names(obj$breaks)[ii],"=c(",paste(round(obj$breaks[[ii]],2),collapse=", "),")",sep="")
-                }
-                breakslist <-  paste("list(",paste(cpholder,collapse=", "),")")
-                ## get the groups if there are any
-                if(!rgrouping){grouplist <- ""}
-                if(rgrouping){
-                  gpholder <- rep(NA,length(grps))
-                  for(ii in 1:length(grps)){
-
-                    ttt <- paste(names(grps)[ii],"=list(\"",paste(grps[[ii]],collapse="\", \""),"\")",sep="")
-                    ttt <- gsub("\"list(","c(",ttt, fixed=T)
-                    ttt <- gsub("\"c(","c(",ttt, fixed=T)
-                    ttt <- gsub("\")\",", "\"),",ttt, fixed=T)
-                    ttt <- gsub("\")\")", "\"))",ttt, fixed=T)
-                    gpholder[ii] <- ttt   
-                  }
-                  grouplist <- paste(", grouping = list(",paste(gpholder,collapse=", "),")")  
-                }
-                ## note that this "obj" is the "obj" that "spacegraph.plot"
-                ## takes as an input, NOT the "obj" above
-                tab[r+1,"Call"] <- sprintf("cem(obj$match$treatment, data=obj$data[,c(obj$match$vars,obj$match$treatment) ], cutpoints=%s, eval.imbalance = FALSE, L1.breaks=obj$raw.profile$medianCP %s)", breakslist, grouplist)
-                
-                
-		
-		coars[[r+1]] <- obj$breaks
-		if(keep.weights)
-		 weights[[r+1]] <- obj$w
-		
-		tab[r+1, 1:(2 * n.groups)] <- as.numeric(c(obj$tab[2,],  obj$tab[2, ]/obj$tab[1, ] * 100))
-		tab$Relaxed[r+1] <- "random"
-            ## The L1 calculation seems to choke if there are no matches
-            if(balance.metric=="L1" | balance.metric=="all"){
-              if(max(obj$tab[2,]==0)!=1){
-		    tab[r+1, "ML1"] <- L1.meas(groups, data, drop=treatment, breaks=medianCP, 
-								    weights=obj$w, grouping=medianGR)$L1
-              }
-            }
-            if(balance.metric=="mdiff" | balance.metric=="all"){
-              if(max(obj$tab[2,]==0)!=1){
-		    tab[r+1, "Mdiff"] <- mdiff(caliperdat=data,alldat=data,mvars=obj$vars,tvar=treatment, wt=obj$w)
-
-              }
-            }
-            if(balance.metric=="mdisc" | balance.metric=="all"){
-              if(max(obj$tab[2,]==0)!=1){
-		    tab[r+1, "Mdisc"] <- mdisc(caliperdat=data,adist=alldist, wt=obj$w)
-
-              }
-            }
-              
-            tab[r+1, "Method"] <- "cem"
-  
-        }
-      if(progress==T & R$cem>1){close(pb)}
-    }  # end if R$cem > 0
-    ## Do one cem even if R$cem==0 because you need it to make the
-    ## output
-    if(R$cem==0){
-      obj <- cem(treatment, data, cutpoints=newcut, eval.imbalance=FALSE)
-    }
-
-
-    ## Do PSM here
-    if(R$psm > 0){
-      if(length(g.names) > 2){stop("PSM requires a dichotomous treatment")}
-      cat(sprintf("Executing %d different random PSM solutions\n", R$psm))
-
-      myps <- psmspace(treatment=treatment,data=data,R=R$psm,
-                     poly=psmpoly,randomgroups=rgrouping,
-                     groups=groups,rawCP=medianCP,progr=progress,
-                     heur=heuristic, balance.metric=balance.metric,
-                     linear.pscore=linear.pscore,alldist=alldist)
-      tab <- rbind(tab,myps$tab)
-    }
-
-
-    ## Do MDM here
-    if(R$mdm > 0){
-      if(length(g.names) > 2){stop("MDM requires a dichotomous treatment")}
-      cat(sprintf("Executing %d different random MDM solutions\n", R$mdm))
-
-      mymdm <- mdmspace(treatment=treatment,data=data,R=R$mdm,
-                     poly=mdmpoly,randomgroups=rgrouping,
-                     groups=groups,rawCP=medianCP,progr=progress,
-                     heur=heuristic, balance.metric=balance.metric,
-                     alldist=alldist)
-      tab <- rbind(tab,mymdm$tab)
-    }
-
-
-
-  #I PUT THIS MATCHIT THING IN HERE, BUT IT'S NOT PLOTTING FOR SOME REASON.
-   
-  ## NOTE, "matchitspace" has not been updated to allow mdiff balance.
-    ## Run MatchIt here
-    if(R$matchit >0){
-      cat(sprintf("Executing %d different random MatchIt solutions\n", R$matchit))
-      mymatchit <- matchitspace(treatment=treatment,data=data,R=R$matchit,
-                     poly=psmpoly,randomgroups=rgrouping,
-                     groups=groups,rawCP=medianCP,progr=progress,
-                     heur=heuristic)
-      tab <- rbind(tab,mymatchit$tab)
-    }
-
-
-    ## Matched Samples provided by User
-    ## I think this will allow multinomial treatments.
-    if(!is.null(other.matches)){
-      cat(sprintf("Calculating L1 for %d solutions provided by the user\n", length(other.matches)))
-      rtab <- as.data.frame(matrix(NA, length(other.matches), 2 *
-                                   n.groups + 6))
-      #if(sum(g.names == c("0","1")) != 2){stop("other.matches requires a dichotomous treatment")}
-      colnames(rtab) <- c(paste("G", g.names, sep = ""), 
-    					   paste("PercG", g.names, sep
-                                                 = ""), "ML1","Mdiff",
-                                           "Mdisc",
-                                           "Relaxed", "Method","Call")
-      if(progress==T){pb <- txtProgressBar(min = 0, max = length(other.matches), initial = 0, style = 3)}
-      for(i in 1:length(other.matches)){
-        if(progress==T){setTxtProgressBar(pb, i)}
-        mm <- other.matches[[i]]
-        ## order the dataset according to the weights...
-        rdata <- data[as.character(mm$id),]
-        if(nrow(na.omit(rdata)) != nrow(rdata)){stop("other.matches specifies observations that aren't in the dataset.")}
-        if(balance.metric=="L1" | balance.metric=="all"){
-          rtab[i,"ML1"] <- (my.imbalance(rdata[[treatment]],rdata,drop=c(treatment),
-                          weights=mm$weight,breaks=medianCP))$L1$L1
-        }
-        if(balance.metric=="mdiff" | balance.metric=="all"){
-          rtab[i,"Mdiff"] <- mdiff(caliperdat=rdata,alldat=data,mvars=names(rdata)[-which(names(rdata) %in% treatment)] ,tvar=treatment, wt=mm$weight)
-        }
-        if(balance.metric=="mdisc" | balance.metric=="all"){
-          rtab[i,"Mdisc"] <- mdisc(caliperdat=rdata,adist=alldist, wt=mm$weight)
-        }
-        ## loop through the levels of treatment
-        for(j in 1:length(g.names)){
-          rtab[i,paste("G",g.names[j],sep="")] <- sum(rdata[[treatment]]==g.names[j] & mm$weight > 0)
-          rtab[i,paste("PercG",g.names[j],sep="")] <- sum(rdata[[treatment]]==g.names[j] & mm$weight > 0)/sum(rdata[[treatment]]==g.names[j])
-          if(length(unique(as.character(mm$method))) > 1){warning("More than one method specified.  Using the first.")}
-        }
-        rtab[i,"Relaxed"] <- "user"
-        rtab[i,"Method"] <- as.character(mm$method)[1]
-        rtab[i,"Call"] <- as.character(mm$method)[1]
-      }
-      if(progress==T){close(pb)}
-      tab <- rbind(tab, rtab)
-
-    }
-
-
-
-    
-    ## Finalize output
-    if(balance.metric=="L1" | balance.metric=="all"){
-      idx <- order(tab[, "ML1"])
-      tab <- tab[idx, ]
-    }
-    if(balance.metric=="mdiff"){
-      idx <- order(tab[, "Mdiff"])
-      tab <- tab[idx, ]
-    }
-    if(balance.metric=="mdisc"){
-      idx <- order(tab[, "Mdisc"])
-      tab <- tab[idx, ]
-    }
-    rownames(tab) <- 1:(dim(tab)[1])
-	out <- list(space = tab)
-	out$L1breaks <- medianCP
-	out$raw.profile <- imb0
-	out$tab <- obj$tab  ## this is only the table for the last cem anyway.  And it makes it crash if there are no cems.
-    out$medianCP <- medianCP
-	out$medianL1 <- medianL1
-	out$coars <- coars[idx]
-	if(keep.weights)
-	 out$weights <- weights[idx]
-	out$n.coars <- n.coars
-        ## make a filler for now
-        tmp.list <- c()
-        for(i in 1:length(vnames)){
-          tmp.list[[i]] <- c(0,0)
-        }
-        names(tmp.list) <- vnames
-        for(i in 1:length(out$coars)){
-          if(is.null(out$coars[[i]])){
-            out$coars[[i]] <- tmp.list
-          }
-        }
-	out$match <- obj  ## again, this would just be the latest cem
-                        ## but I use it for running CEM from the GUI.
-        #out$data <- original.data
-        out$data <- data
-      ## add the mahalanobis discrepancy so we can add new matches to the plot
-      out$alldist <- alldist
-    class(out) <- "spacegraph"
-	
-    ## give a warning about nonconverged pscores
-    if(exists("myps")){
-      if(nrow(na.omit(myps$tab)) < nrow(myps$tab)){
-        print(paste("WARNING: ",nrow(myps$tab)-nrow(na.omit(myps$tab))," of ",nrow(myps$tab),
-            " propensity score models did not converge",sep=""))
-    }
-    }
-    #if (plot) 
-    #  #plot(out,data=data,explore=interactive())
-    #      spacegraph.plot(out,explore=interactive())
-	
-    return(invisible(out))
-}
 
 
 ###################################################################
@@ -1636,7 +1191,6 @@ group.var <- function(x, groups){
     tmp <- numeric(n)
     ngr <- length(groups)
     all.idx <- NULL
-#    cat(sprintf("n=%d, ngr=%d\n", n, ngr))
      for(i in 1:ngr){
       idx <- which(x %in% groups[[i]])
        if(length(idx)>0){
@@ -2266,6 +1820,7 @@ spacegraph.plot2 <- function(obj, objname=NULL, group="1",
                             method.col=list(cem="#0000ff75",mdm="#ff000075",
                                             psm="#00ff0075",matchit="#FF880075"),
                             scale.var=TRUE,
+                            verbose=1,
                             ...){
 	if(class(obj) != "spacegraph")
 	  stop("obj must be of class `spacegraph'")
@@ -2387,12 +1942,14 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
                             method.col=list(cem="#0000ff75",mdm="#ff000075",
                                             psm="#00ff0075",matchit="#FF880075"),
                             plot.call=NULL,balance.metric="L1",
-                            N="treated",scale.var=TRUE,...){
+                            N="treated",scale.var=TRUE,
+                            verbose=1,
+                            ...){
 	if(!interactive() | !explore){
             if(match.call()["xlim"] != "NULL()" | match.call()["ylim"] != "NULL()")
-              cat("cannot specify xlim or ylim with explore=F\n")
+              warning("cannot specify xlim or ylim with explore=F\n")
             if(match.call()["main"] != "NULL()" | match.call()["xlab"] != "NULL()" | match.call()["ylab"] != "NULL()")
-              cat("cannot specify main, xlab, or ylab with explore=F\n")
+              warning("cannot specify main, xlab, or ylab with explore=F\n")
 	  	spacegraph.plot2(obj, group, method.col=method.col, scale.var=scale.var)
 		return(NULL)	
 	}
@@ -2407,7 +1964,7 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 	haveTCL <- interactive()
 	if(!capabilities("tcltk")){
 		haveTCL <- FALSE	
-		cat("\ntcltk support is absent")
+		warning("\ntcltk support is absent")
 	}
 	
 	if(haveTCL){
@@ -2652,12 +2209,14 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
                 ## call
                 OnCall <- function(){
 			other.args <- NULL
-			cat("\n... running the call ...\n")
+			if(verbose>=1)
+			  cat("\n... running the call ...\n")
 			tmpc <- tclvalue( callInfo )
 			valid <- try(eval(parse(text=tmpc)), silent = TRUE)
-			if( class(valid) == "try-error"){
-				cat(sprintf("\nError in call specification. Exiting.\n", tmpc) )
-                return(NULL)
+			if( class(valid) == "try-error" ){
+			  if(verbose>=1)
+  				cat(sprintf("\nError in call specification. Exiting.\n", tmpc) )
+       return(NULL)
 			}
                   tmp.mat <- eval(parse(text= tclvalue(callInfo)))
                  
@@ -2792,21 +2351,22 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 		
 		OnOK <- function(){
 			other.args <- NULL
-			cat("\n... running new cem...\n")
+			if(verbose >= 1)
+		  	cat("\n... running new cem...\n")
 			spE$n.tmp.br <- length(spE$tmp.br)
 			for(i in 1:spE$n.tmp.br){
 				vv <- names(spE$tmp.br)[i]
 				tmpc <- tclvalue( tcvars[[i]] )
 				spE$new.br[[i]] <- try(eval(parse(text=tmpc)), silent = TRUE)
 				if( class(spE$new.br[[i]]) == "try-error"){
-					cat(sprintf("\nError in settings cutpoints of variable << %s >>:\n\n >> %s <<\n\n Using original ones.\n", vv, tmpc) )
+					warning(sprintf("\nError in settings cutpoints of variable << %s >>:\n\n >> %s <<\n\n Using original ones.\n", vv, tmpc) )
 				  spE$new.br[[i]] <- spE$tmp.br[[i]] 
 				}
 			}
 			tmpc <- tclvalue( tcvars[[spE$n.tmp.br+1]] )
 			other.args <- try(eval(parse(text=tmpc)), silent = TRUE)
 			if( class(other.args) == "try-error"){
-				cat(sprintf("\nError in additional CEM arguments specification. Ignoring them.\n", tmpc) )
+				warning(sprintf("\nError in additional CEM arguments specification. Ignoring them.\n", tmpc) )
 				other.args <- NULL 
 			} else 
 			 other.args <- tmpc
@@ -2819,16 +2379,11 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
                   breakslist <-  paste("list(",paste(cpholder,collapse=", "),")")
 
                    cem.call <-  sprintf("cem(spE$obj$match$treatment, data=data[,c(spE$obj$match$vars,spE$obj$match$treatment) ], cutpoints=%s, %s)", breakslist, other.args)
-#cat(cem.call)
-                   			#if(!is.null(other.args))
-			tmp.mat <- eval(parse(text=cem.call))
-		#	print(str(tmp.mat))
-                  #      else
-			#   tmp.mat <- cem(obj$match$treatment, data=data[,c(obj$match$vars,obj$match$treatment) ], cutpoints=new.br, eval.imbalance=FALSE)
 
-                        
+                   			tmp.mat <- eval(parse(text=cem.call))
+
+                   	                        
 			tclServiceMode(TRUE)
-			#tmp.ML1 <- L1.meas(obj$match$groups, data=data[,obj$match$vars], breaks=obj$medianCP, weights=tmp.mat$w)$L1
                   if(balance.metric=="L1"){
 			  tmp.ML1 <- L1.meas(spE$obj$match$groups, data=data[,spE$obj$match$vars], breaks=spE$obj$medianCP, weights=tmp.mat$w)$L1
 			}

@@ -1,4 +1,4 @@
-search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, useCP, ...)
+search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, useCP, verbose=1, ...)
 {
 	#if(!require(MatchIt))
 	# stop("You need MatchIt package to use this tool")
@@ -41,9 +41,11 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 			total <- total + ncol(combn(cvars, i)) 
 	}
 	
-	cat("\n I'm going to run", total, "different matching solutions!\n\n")
-	pb <- txtProgressBar(min = 1, max = total, initial = 1, style = 3)
-
+	if(verbose>=1)
+	  cat("\n I'm going to run", total, "different matching solutions!\n\n")
+	if(interactive()) {
+	  pb <- txtProgressBar(min = 1, max = total, initial = 1, style = 3)
+  }
 	L1 <- rep(as.numeric(NA), total)
 	n <- rep(as.numeric(NA), total)
 	frml <- character(total)
@@ -56,7 +58,7 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 			ftmp <- paste(ftmp, "+", allsubset[k,j])
 			frml[counter] <- ftmp
 			ftmp <- as.formula(ftmp)
-			setTxtProgressBar(pb, counter)
+			if(interactive()) setTxtProgressBar(pb, counter)
 			psm <- try(matchit(ftmp, data=data, ...), silent = TRUE)
 			if (class(psm) != "try-error") {
 				L1[counter] <- L1.meas(data[[treatment]], data[xvars], breaks=useCP, weights=psm$weights)$L1
@@ -75,7 +77,7 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 			ftmp <- paste( mfull , "+", paste(allsubset[,j],collapse="*"))
 			frml[counter] <- ftmp
 			ftmp <- as.formula(ftmp)
-			setTxtProgressBar(pb, counter)
+			if(interactive()) setTxtProgressBar(pb, counter)
 			psm <- try(matchit(ftmp, data=data, ...), silent = TRUE)
 			if (class(psm) != "try-error") {
 				L1[counter] <- L1.meas(data[[treatment]], data[xvars], breaks=useCP, weights=psm$weights)$L1
@@ -92,7 +94,7 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 				ftmp <- paste( mfull , "+", paste(sprintf("+ %s^%d",allsubset[,j],2), collapse=""))
 				frml[counter] <- ftmp
 				ftmp <- as.formula(ftmp)
-				setTxtProgressBar(pb, counter)
+				if(interactive()) setTxtProgressBar(pb, counter)
 				psm <- try(matchit(ftmp, data=data, ...), silent = TRUE)
 				if (class(psm) != "try-error") {
 					L1[counter] <- L1.meas(data[[treatment]], data[xvars], breaks=useCP, weights=psm$weights)$L1
@@ -104,7 +106,8 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 	}
 	
 	
-	close(pb)
+	if(interactive()) 
+	  close(pb)
 
 	return( list(n=n, L1=L1, frml=frml, CP=useCP) ) 
 }

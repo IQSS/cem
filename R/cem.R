@@ -1,10 +1,8 @@
 group.var <- function(x, groups){ 
 	n <- length(x)
-#	print(str(x))
 	tmp <- numeric(n)
 	ngr <- length(groups)
 	all.idx <- NULL
-#	cat(sprintf("n=%d, ngr=%d\n", n, ngr))
 	 for(i in 1:ngr){
 	  idx <- which(x %in% groups[[i]])
 	   if(length(idx)>0){

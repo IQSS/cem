@@ -21,17 +21,17 @@ function (treatment=NULL, data, cutpoints = NULL,  drop=NULL,
 		data <- data[-dropped]
 	vnames <- colnames(data)
     if (sum(is.na(data)) > 0) 
-        cat("The data contain missing values. CEM will match on them; see the manual for other options.\n")
+        warning("The data contain missing values. CEM will match on them; see the manual for other options.\n")
 
     n <- dim(data)[1]
     nv <- dim(data)[2]
 	mycut <- vector(nv, mode="list")
     names(mycut) <- vnames
 	# preprocessing
-	if(verbose > 1)
+	if(verbose >= 1)
  	 cat("\npre-processing data")
 	for (i in 1:nv) {	
-	    if(verbose>1)
+	    if(verbose>=1)
 		 cat(".")
 		tmp <- reduce.var(data[[i]], cutpoints[[vnames[i]]])
 		data[[i]] <- tmp$x
@@ -70,7 +70,7 @@ function (treatment=NULL, data, cutpoints = NULL,  drop=NULL,
           else
             baseline.group <- obj$g.names[1]
         }
-        if(verbose>0)
+        if(verbose>=0)
          cat(sprintf("\nUsing '%s'='%s' as baseline group\n", treatment, baseline.group)) 
         obj$baseline.group <- baseline.group		
 	}

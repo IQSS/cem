@@ -1,4 +1,4 @@
-pair <- function(obj, data, method=NULL, mpower=2, verbose=0){
+pair <- function(obj, data, method=NULL, mpower=2, verbose=1){
 		nm <- NULL
 		strataID <- unique(obj$strata)
 		reservoir <- NULL		
@@ -7,8 +7,7 @@ pair <- function(obj, data, method=NULL, mpower=2, verbose=0){
 		 n <- length(idx)
 		 m <- n/2
 		 if(m != as.integer(m)) { # we have an odd number of units
-	#	   cat(sprintf("strata %d : ODD. m=%f, n=%f\n", i, m, n))
-           reservoir <- c(reservoir, idx[1])
+	         reservoir <- c(reservoir, idx[1])
 		   idx <- idx[-1]  
 		   n <- n-1
 		   m <- n/2
@@ -47,7 +46,7 @@ pair <- function(obj, data, method=NULL, mpower=2, verbose=0){
          n <- length(idx)
 		 m <- n/2
 		 if(m != as.integer(m)) { # we have an odd number of units in the reservoir
-	#	   cat(sprintf("ODD. m=%f, n=%f\n", m, n))
+	
 		   reservoir2 <- idx[1]
 		   idx <- idx[-1]  
 		   n <- n-1
@@ -98,11 +97,14 @@ pair <- function(obj, data, method=NULL, mpower=2, verbose=0){
    full.paired[nm2[i,]] <- k
   }		
  
-  cat(sprintf("\nTotal number of units paired in CEM strata: %d\nTotal number of units matched: %d\n", 2*NROW(nm), 2*NROW(nm2)))
+  if(verbose>=1)
+    cat(sprintf("\nTotal number of units paired in CEM strata: %d\nTotal number of units matched: %d\n", 2*NROW(nm), 2*NROW(nm2)))
   if(length(reservoir2)>0){
-   cat(sprintf("Unit corresponding to row `%s', not paired\n", rownames(data)[reservoir2]))
+   if(verbose>=1)  
+     cat(sprintf("Unit corresponding to row `%s', not paired\n", rownames(data)[reservoir2]))
   }
-  cat("\n")
+  if(verbose>=1)
+    cat("\n")
   return(invisible(list(reservoir=reservoir,reservoir2=reservoir2, paired=paired, full.paired=full.paired)))
 }
 

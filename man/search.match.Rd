@@ -5,7 +5,7 @@
 Heuristic search of match solutions
 }
 \usage{
-search.match(data, treatment, vars, depth=3, min.vars =1, group=1, useCP, ...) 
+search.match(data, treatment, vars, depth=3, min.vars =1, group=1, useCP,verbose=1, ...) 
 }
 \arguments{
   \item{data}{the original data.}
@@ -15,6 +15,7 @@ search.match(data, treatment, vars, depth=3, min.vars =1, group=1, useCP, ...)
   \item{min.vars}{minimum number of variables to consider in the model.}
   \item{group}{the indentifier of the treated group, usually 1 or the level of the fact variable \code{treatment}.}
   \item{useCP}{the cutpoints for the calculation of the L1 measure}
+   \item{verbose}{integer, prints more info on screen.}
   \item{...}{passed to \code{matchit}}
 }
 

@@ -5,7 +5,7 @@
 Heuristic search of the best propensity score model specification
 }
 \usage{
-pscoreSelect(formula, data, C.L=2*(pnorm(-1,0,1)), C.Q=0.1) 
+pscoreSelect(formula, data, C.L=2*(pnorm(-1,0,1)), C.Q=0.1,verbose=1) 
 }
 \arguments{
   \item{data}{the original data.}
@@ -15,6 +15,7 @@ pscoreSelect(formula, data, C.L=2*(pnorm(-1,0,1)), C.Q=0.1)
   is added linearly to the model.}
   \item{C.Q}{if the highest likelihood ratio statistic is greater than \code{C.Q},
   then interaction terms are included in the pscore model specification.}
+  \item{verbose}{integer, prints more info on screen.}
 }
 
 \details{

@@ -1,7 +1,7 @@
 `relax.cem` <-
 function (obj, data, depth = 1, verbose = 1, L1.breaks = NULL, 
 plot = TRUE, fixed = NULL, shifts = NULL, minimal = NULL, 
-use.coarsened = TRUE, eval.imbalance=TRUE, use.weights=FALSE, ...)
+use.coarsened = TRUE, eval.imbalance=TRUE, use.weights=FALSE,...)
 {
     if (class(obj) != "cem.match") 
 	stop("obj must be of class `cem.match'")
@@ -102,7 +102,8 @@ use.coarsened = TRUE, eval.imbalance=TRUE, use.weights=FALSE, ...)
         n.comb <- n.comb * 2 * n.sh
         max.k <- max.k * (1 + 2 * n.sh)
     }
-    cat(sprintf("Executing %d different relaxations\n", n.comb))
+    if(verbose>=1)
+      cat(sprintf("Executing %d different relaxations\n", n.comb))
 
 	pb <- txtProgressBar(min = 1, max = n.relax, initial = 1, style = 3)
 
@@ -188,15 +189,8 @@ use.coarsened = TRUE, eval.imbalance=TRUE, use.weights=FALSE, ...)
             tab$Relaxed[K.tab] <- paste(r.str, collapse = ", ")
             k <- k + 1
             K.tab <- K.tab + 1
-#            if (verbose == 1) {
-#                iter <- as.integer(k/max.k * 10)
-#                if (iter %in% c(2, 4, 6, 8, 10)) {
-#					if (last != iter) 
-#                    cat(sprintf("[%2d%%]", iter * 10))
-#                }
-#                else cat(".")
-#                last <- iter
-#            }
+
+            
             if (n.sh > 0) {
                 tmp.obj$breaks <- newcut
                 tmp.obj$drop <- obj$drop
@@ -214,20 +208,11 @@ use.coarsened = TRUE, eval.imbalance=TRUE, use.weights=FALSE, ...)
 																 ], tmp.tab[2, ]/tmp.tab[1, ] * 100))
                 tab$Relaxed[K.tab] <- sprintf("S:%s", r.str)
                 K.tab <- K.tab + 1
-#                if (verbose == 1) {
-#					for (kk in k:(k + 2 * n.sh)) {
-#iter <- as.integer(kk/max.k * 10)
-#						if (iter %in% c(2, 4, 6, 8, 10)) {
-#							if (last != iter) 
-#							cat(sprintf("[%2d%%]", iter * 10))
-#						}
-#						else cat(".")
-#						last <- iter
-#					}
-#                }
+            
+                
                 k <- k + 2 * n.sh
             }
-            if (verbose > 1) {
+            if(verbose>=1) {
                 cat(r.str)
                 cat("\n")
             }

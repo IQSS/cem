@@ -18,7 +18,7 @@ function (obj, verbose = 0)
 	
     colnames(tab) <- paste("G", obj$g.names, sep = "")
     rownames(tab) <- c("All", "Matched", "Unmatched")
-    if (verbose > 1) {
+    if (verbose >= 1) {
         cat(sprintf("\nCEM Subclasses: %d\n", length(obj$mstrataID)))
         cat("\nSample sizes:\n")
         print(tab)

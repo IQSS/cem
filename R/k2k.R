@@ -1,8 +1,9 @@
-ak2k <- function (obj, data, method = NULL, mpower = 2, verbose = 0)
+ak2k <- function (obj, data, method = NULL, mpower = 2, verbose = 1)
 {
     nm <- NULL
     for (i in obj$mstrataID) {
-        cat(sprintf("\nmastrata=%d\n",i))
+        if(verbose>=1)
+          cat(sprintf("\nmastrata=%d\n",i))
         idx <- which(obj$mstrata == i)
         tmp <- obj$groups[idx]
         tr <- idx[which(tmp == obj$g.names[1])]
@@ -34,7 +35,8 @@ ak2k <- function (obj, data, method = NULL, mpower = 2, verbose = 0)
                  mins <- apply(mat1, 2, function(x) which.min(x))[1]
                  coln <- colnames(mat1)[1]
                  rown <- rownames(mat1)[mins]
-                 cat("\nrow-col\n")
+                 if(verbose>=1)
+                   cat("\nrow-col\n")
                  print(c(length(coln),length(rown)))
                  nm <- c(nm, coln, rown)
                  mat1 <- mat1[-mins,]
@@ -47,7 +49,8 @@ ak2k <- function (obj, data, method = NULL, mpower = 2, verbose = 0)
                  mins <- apply(mat1, 1, function(x) which.min(x))[1]
                  rown <- rownames(mat1)[1]
                  coln <- colnames(mat1)[mins]
-                 cat("\nrow-col2\n")
+                 if(verbose>=1)
+                   cat("\nrow-col2\n")
                  print(c(length(coln),length(rown)))
                  nm <- c(nm, coln, rown)
                  mat1 <- mat1[,mins]
@@ -55,7 +58,6 @@ ak2k <- function (obj, data, method = NULL, mpower = 2, verbose = 0)
              }
          }
         } else { # n.tr != n.ct
-            cat("\nhere\n")
             nm <- c(nm, rownames(obj$X)[c(ct, tr)])
         }
     }
@@ -84,7 +86,6 @@ k2k <- function(obj, data, method=NULL, mpower=2, verbose=0){
 
         for(i in obj$mstrataID){
           idx <- which(obj$mstrata==i)
-          #cat(sprintf("\nstrata=%d\n",i))
 		  tmp <- obj$groups[idx] 
 		  tr <- idx[which(tmp==obj$g.names[1])]
 		  ct <- idx[which(tmp==obj$g.names[2])]

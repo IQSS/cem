@@ -161,7 +161,7 @@ imbalance <- function(group, data, drop=NULL, breaks=NULL, weights, grouping = N
  globalL1 <- L1.meas(group=group, data=data, breaks=breaks, weights=weights)
 	
  if(length(lv)>2){
-  cat("\nMore than 2 groups, no univariate measures of imbalance will be calculated.\n")
+  warning("\nMore than 2 groups, no univariate measures of imbalance will be calculated.\n")
   out <- list(L1=globalL1)
  } else {
   idx1 <- which(group==lv[1])

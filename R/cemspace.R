@@ -1,7 +1,7 @@
 `cemspace` <-
 function (treatment=NULL, data = NULL, R=100, grouping = NULL, drop=NULL,
 L1.breaks = NULL, L1.grouping=NULL, plot = TRUE, fixed = NULL, minimal = 1, maximal = 5,
-M=250, raw.profile=NULL, keep.weights=FALSE) 
+M=250, raw.profile=NULL, keep.weights=FALSE, verbose=1) 
 {
     if (!is.null(raw.profile) & class(raw.profile) != "L1profile") 
 	 stop("raw.profile must be of class `L1profile'")
@@ -37,7 +37,8 @@ M=250, raw.profile=NULL, keep.weights=FALSE)
 	
 	if(is.null(raw.profile)){
 		if(is.null(L1.breaks)){
-		 cat("\nCalculating L1 profile for the raw data...\n")
+		 if(verbose>=1)
+		   cat("\nCalculating L1 profile for the raw data...\n")
 		 imb0 <- L1.profile(groups, data, drop=treatment, M=M, plot=FALSE)
 		 medianL1 <- median(imb0$L1)
 		 medianCP <- imb0$CP[[ which(imb0$L1 >= medianL1)[1] ]]
@@ -109,7 +110,7 @@ M=250, raw.profile=NULL, keep.weights=FALSE)
 	
 	g.names <- levels(groups)
 	n.groups <- length(g.names)
-	
+	if(verbose>=1)
     cat(sprintf("Executing %d different random CEM solutions\n", R))
 
     tab <- as.data.frame(matrix(NA, R + 1, 2 * n.groups + 2))

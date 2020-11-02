@@ -12,7 +12,8 @@ spacegraph(treatment=NULL, data = NULL,
      minimal = 1, maximal = 15, M=100, 
      raw.profile=NULL, keep.weights=FALSE, progress=TRUE,
      rgrouping=FALSE, groups=NULL, psmpoly=1, mdmpoly=1, 
-     other.matches=NULL, heuristic=FALSE, linear.pscore=FALSE) 
+     other.matches=NULL, heuristic=FALSE, linear.pscore=FALSE,
+     verbose=1) 
 
 }
 
@@ -47,6 +48,8 @@ spacegraph(treatment=NULL, data = NULL,
   \item{heuristic}{Boolean, if TRUE spacegraph uses a heuristic method to randomly select covariates for MDM and PSM rather than sampling from all possible combinations of covariates.  The heuristic tends to select most of the main effects and a small number of interactions.  This method is automatically applied with large numbers of covariates.}
   \item{progress}{show progress bars.}
  \item{linear.pscore}{does \code{linear.pscore}}
+  \item{verbose}{integer, controls the level of output.} 
+ 
 }
 
 \details{

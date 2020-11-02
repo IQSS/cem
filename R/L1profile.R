@@ -4,7 +4,8 @@
 
 L1.profile <- function(group, data, drop = NULL, min.cut = 2, max.cut = 12, 
 weights, plot = TRUE, add = FALSE, col = "red", 
-lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE) 
+lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE,
+verbose=1) 
 {
     if (min.cut < 2) min.cut <- 2
     min.cut <- as.integer(min.cut)
@@ -33,13 +34,16 @@ lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE)
 	outGR <- vector(0, mode="list")
 	for (i in catvar) br[i] <- NULL
 	ns <- 0
-	cat("\n")
+	if(verbose>=1)
+	  cat("\n")
 	if(!is.null(useCP)){
 		nCP <- length(useCP)
-		if(progress){pb <- txtProgressBar(min = 1, max = nCP, initial = 1, style = 3)}
+		if(progress & interactive()){
+		  pb <- txtProgressBar(min = 1, max = nCP, initial = 1, style = 3)
+		}
 #		s <- round(nCP*.1)
 		for(k in 1:nCP){
-			if(progress){setTxtProgressBar(pb, k)}
+			if(progress & interactive()){setTxtProgressBar(pb, k)}
 			cp <- useCP[[k]]
 			ncp <- length(cp)
 			for(j in 1:ncp)
@@ -50,19 +54,13 @@ lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE)
 			out <- c(out, tmp)
 			outCP[[length(outCP)+1]] <-  br
 			outGR[[length(outGR)+1]] <-  grouping
-#			if(k %% s == 0){
-#				ns <- ns+10
-#				cat(sprintf("[%2d%%]",ns))
-#			} else {
-#				cat(".")
-#			}			
+ 	
 		}
-		if(progress){close(pb)}	
+		if(progress & interactive()){close(pb)}	
 	} else {
-#		s <- round(M*.1)
-		if(progress){pb <- txtProgressBar(min = 1, max = M, initial = 1, style = 3)}
+ 		if(progress & interactive()){pb <- txtProgressBar(min = 1, max = M, initial = 1, style = 3)}
  	 	for(m in 1:M){
-			if(progress){setTxtProgressBar(pb, m)}
+			if(progress & interactive()){setTxtProgressBar(pb, m)}
 			theta <- sample(min.cut:max.cut, length(numvar),replace=TRUE)
 			names(theta) <- numvar
 			for (i in numvar) 
@@ -73,15 +71,9 @@ lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE)
 			out <- c(out, tmp)
 			outCP[[length(outCP)+1]] <-  br
 			outGR[[length(outGR)+1]] <-  grouping
-#			if(m %% s == 0){
-#				ns <- ns+10
-#				cat(sprintf("[%2d%%]",ns))
-#			} else {
-#				cat(".")
-#			}
-			
+ 			
 		}
-		if(progress){close(pb)}
+		if(progress& interactive()){close(pb)}
 	}
 	
 	names(outCP) <- names(out)
@@ -98,8 +90,9 @@ lty = 1, M=100, useCP=NULL, grouping=NULL, progress=TRUE)
 	
     val <- list(L1 =out, CP = outCP, GR=outGR, medianL1=medianL1, medianCP=medianCP, medianGR=medianGR)
     class(val) <- "L1profile"
-	cat("\n")
-    if (plot) 
+	if(verbose>=1)
+	  cat("\n")
+    if(plot) 
 	plot(val, lty = lty, col = col, add = add)
     return(invisible(val))
 }

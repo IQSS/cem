@@ -16,7 +16,7 @@
    new.br
  }
 
-shift.cem <- function(obj, data, shifts=NULL, verbose=0, plot=TRUE){
+shift.cem <- function(obj, data, shifts=NULL, verbose=1, plot=TRUE){
   if(class(obj) != "cem.match")
    stop("obj must be of class `cem.match'")
 
