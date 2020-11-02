@@ -1,7 +1,7 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.24
+Version: 1.1.25
 Authors@R: c(person("Stefano M.", "Iacus", email = "stefano.iacus@ec.europa.eu", role = c("aut", "cre")),
 	person("Gary", "King", email = "king@harvard.edu", role = c("aut")),
 	person("Giuseppe", "Porro", email = "giuseppe.porro@uninsubria.it", role = c("aut")),

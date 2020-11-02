@@ -1,4 +1,4 @@
-NEWS in CEM version 1.1.24
+NEWS in CEM version 1.1.25
 * added this NEWS file
 * fixed Authors@R field adding Richard Nielesen in DESCRIPTION
 * added references to Shimazaki and Shinomoto (2007) in cem.Rd
@@ -11,6 +11,6 @@ NEWS in CEM version 1.1.24
   in explore=FALSE mode
 * fixed par() restoring on exit from relax.plot.R  
 * fixed options() changes on finishing on the vignette inst/doc/cem.R[nw]
-* fingers crossed for CRAN approval
-* caputerd error in man page with random selection of data that
+* captured error in man page with random selection of data that
   prevented test to pass
+* fingers crossed for CRAN approval
