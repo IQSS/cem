@@ -91,9 +91,9 @@ plot(sp, N="all")
 
 ## You can specify how the x-axis is scaled.  Setting scale.var=T
 ## gives you the scaling as 1/sqrt(n).  Setting scale.var=F gives
-## scales it linearly.  Default is scale.var=T.
+## scales it linearly.  Default is scale.var=TRUE.
 
-plot(sp, scale.var=F)
+plot(sp, scale.var=FALSE)
 
 ## You can also specify which measure of balance to use
 ## by specifying the argument "balance.metric" as
