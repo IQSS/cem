@@ -136,13 +136,13 @@ data set has the same meaning in all, and is the same for all)
   \item{imbalance}{NULL or a vector of imbalances. See Details.}
 }
 \references{
-Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+Iacus, King, Porro (2011) \doi{10.1198/jasa.2011.tm09599}
 
-Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+Iacus, King, Porro (2012) \doi{10.1093/pan/mpr013}
 	
-Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+Iacus, King, Porro (2019) \doi{10.1017/pan.2018.29}
 	
-Shimazaki, Shinomoto (2007) \url{https://doi.org/10.1162/neco.2007.19.6.1503}
+Shimazaki, Shinomoto (2007) \doi{10.1162/neco.2007.19.6.1503}
 }
  
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}

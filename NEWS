@@ -1,3 +1,7 @@
+NEWS in CEM version 1.1.29
+* fixed vignette formatting
+* fixed \url vs \doi in man pages
+
 NEWS in CEM version 1.1.27
 * added this NEWS file
 * fixed Authors@R field adding Richard Nielesen in DESCRIPTION

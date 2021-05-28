@@ -32,11 +32,11 @@ fictituous answer to the questionarie on ``Agreement on this job training progra
 }
 \source{see references}
 \references{
-Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+Iacus, King, Porro (2011) \doi{10.1198/jasa.2011.tm09599}
 
-Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+Iacus, King, Porro (2012) \doi{10.1093/pan/mpr013}
 	
-Iacus, King, Porro (2019) \url{https://doi.org/10.1017/pan.2018.29}
+Iacus, King, Porro (2019) \doi{10.1017/pan.2018.29}
 
 Lalonde (1986) Evaluating the Econometric Evaluations of Training Programs with Experimental Data, \emph{The American Economic Review},
 76(4), 604-620. 

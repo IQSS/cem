@@ -38,11 +38,11 @@ otherwise \code{k2k} will not work.
   \item{obj}{an object of class \code{cem.match}}
 }
 \references{
-Iacus, King, Porro (2011) \url{https://doi.org/10.1198/jasa.2011.tm09599}
+Iacus, King, Porro (2011) \doi{10.1198/jasa.2011.tm09599}
 
-Iacus, King, Porro (2012) \url{https://doi.org/10.1093/pan/mpr013}
+Iacus, King, Porro (2012) \doi{10.1093/pan/mpr013}
 	
-Iacus, King, Porro (2019) \url{ https://doi.org/10.1017/pan.2018.29}
+Iacus, King, Porro (2019) \doi{10.1017/pan.2018.29}
 }
 \author{Stefano Iacus, Gary King, and Giuseppe Porro}
 \examples{
