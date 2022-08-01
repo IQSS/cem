@@ -60,7 +60,8 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 			ftmp <- as.formula(ftmp)
 			if(interactive()) setTxtProgressBar(pb, counter)
 			psm <- try(matchit(ftmp, data=data, ...), silent = TRUE)
-			if (class(psm) != "try-error") {
+            #if (class(psm) != "try-error") {
+            if (!inherits(psm,"try-error")) {
 				L1[counter] <- L1.meas(data[[treatment]], data[xvars], breaks=useCP, weights=psm$weights)$L1
 				n[counter] <- sum(psm$weights>0 & data[[treatment]]==group)
 			}
@@ -79,7 +80,8 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 			ftmp <- as.formula(ftmp)
 			if(interactive()) setTxtProgressBar(pb, counter)
 			psm <- try(matchit(ftmp, data=data, ...), silent = TRUE)
-			if (class(psm) != "try-error") {
+            #if (class(psm) != "try-error") {
+            if(!inherits(psm,"try-error")) {
 				L1[counter] <- L1.meas(data[[treatment]], data[xvars], breaks=useCP, weights=psm$weights)$L1
 				n[counter] <- sum(psm$weights>0 & data[[treatment]]==group)
 			}
@@ -96,7 +98,8 @@ search.match <- function(data, treatment, vars, depth=3, min.vars =1, group=1, u
 				ftmp <- as.formula(ftmp)
 				if(interactive()) setTxtProgressBar(pb, counter)
 				psm <- try(matchit(ftmp, data=data, ...), silent = TRUE)
-				if (class(psm) != "try-error") {
+                #if (class(psm) != "try-error") {
+                if (!inherits(psm,"try-error")) {
 					L1[counter] <- L1.meas(data[[treatment]], data[xvars], breaks=useCP, weights=psm$weights)$L1
 					n[counter] <- sum(psm$weights>0 & data[[treatment]]==group)
 				}

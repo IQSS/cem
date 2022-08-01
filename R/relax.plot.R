@@ -1,7 +1,8 @@
 plot.relax.cem <- function(...) relax.plot(...)
 
 relax.plot <- function(tab, group="1", max.terms=50, perc=.5, unique=FALSE, colors=TRUE){
-	if(class(tab) != "relax.cem")
+    #if(class(tab) != "relax.cem")
+    if(!inherits(tab,"relax.cem"))
 	stop("tab must be of class `relax.cem'")
   oldpar <- par(no.readonly = TRUE)     
   on.exit(par(oldpar))             

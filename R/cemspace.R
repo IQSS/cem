@@ -3,7 +3,7 @@ function (treatment=NULL, data = NULL, R=100, grouping = NULL, drop=NULL,
 L1.breaks = NULL, L1.grouping=NULL, plot = TRUE, fixed = NULL, minimal = 1, maximal = 5,
 M=250, raw.profile=NULL, keep.weights=FALSE, verbose=1) 
 {
-    if (!is.null(raw.profile) & class(raw.profile) != "L1profile") 
+    if (!is.null(raw.profile) & !inherits(raw.profile, "L1profile"))
 	 stop("raw.profile must be of class `L1profile'")
 
     gn <- NULL

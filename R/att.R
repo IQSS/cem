@@ -234,7 +234,8 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
   # all data
     rand.try <- try(lme(update(formula, ~ . -cemID -allID - matched), data=data1, 
 	  random = f1, keep.data=FALSE, control=control), silent=TRUE)
-    if(class(rand.try) == "try-error"){
+    #  if(class(rand.try) == "try-error"){
+    if(inherits(rand.try,"try-error")){
      cat("\nCannot estimate the random effects model for the complete data set\n")  
 	} else { 
      rand.all <- rand.try
@@ -257,7 +258,8 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
 # CEM restricted
     rand.try <- try(lme(update(formula, ~ . -cemID -allID - matched), data=data1, random = f2, 
 	 subset=matched==TRUE, keep.data=FALSE, control=control), silent=TRUE)
-    if(class(rand.try) == "try-error"){
+     #if(class(rand.try) == "try-error"){
+     if(inherits(rand.try,"try-error")){
      cat("\nCannot estimate the random effects model for the CEM matched subsample\n")   
     } else {
     rand.cem <- rand.try
@@ -442,7 +444,7 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
 
 
  }
- if(class(data) != "list")
+ if(class(data)[1] != "list")
   stop("Argument `data' must be a list of `data.frame's")
 
  n.cems <- length(obj) - 1
@@ -499,7 +501,7 @@ function (obj, formula, data, model="linear", extrapolate=FALSE,ntree=2000)
 
 
 summary.cem.att <- function(object, ...) {
-	if(class(object) == "cem.att"){
+	if(inherits(object,"cem.att")){
 		cat("\nTreatment effect estimation for data:\n\n")
 		print(object$tab)
 		

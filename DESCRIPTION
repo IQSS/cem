@@ -1,8 +1,8 @@
 Package: cem
 Type: Package
 Title: Coarsened Exact Matching
-Version: 1.1.29
-Authors@R: c(person("Stefano M.", "Iacus", email = "stefano.iacus@ec.europa.eu", role = c("aut", "cre")),
+Version: 1.1.30
+Authors@R: c(person("Stefano M.", "Iacus", email = "siacus@iq.harvard.edu", role = c("aut", "cre")),
 	person("Gary", "King", email = "king@harvard.edu", role = c("aut")),
 	person("Giuseppe", "Porro", email = "giuseppe.porro@uninsubria.it", role = c("aut")),
 	person("Richard", "Nielsen", email = "rnielsen@mit.edu", role = c("aut"))
@@ -10,7 +10,7 @@ Authors@R: c(person("Stefano M.", "Iacus", email = "stefano.iacus@ec.europa.eu",
 Depends: tcltk, lattice
 Imports: MatchIt, combinat, randomForest, nlme
 Suggests: Amelia(>= 1.2-0)
-Maintainer: Stefano M. Iacus <stefano.iacus@ec.europa.eu>
+Maintainer: Stefano M. Iacus <siacus@iq.harvard.edu>
 Description: Implementation of the Coarsened Exact Matching algorithm discussed 
 	along with its properties in
   Iacus, King, Porro (2011) <DOI:10.1198/jasa.2011.tm09599>;

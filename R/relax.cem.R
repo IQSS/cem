@@ -3,7 +3,8 @@ function (obj, data, depth = 1, verbose = 1, L1.breaks = NULL,
 plot = TRUE, fixed = NULL, shifts = NULL, minimal = NULL, 
 use.coarsened = TRUE, eval.imbalance=TRUE, use.weights=FALSE,...)
 {
-    if (class(obj) != "cem.match") 
+#    if (class(obj) != "cem.match")
+    if (!inherits(obj,"cem.match"))
 	stop("obj must be of class `cem.match'")
     if(is.null(obj$X))
     stop("run cem with argument keep.all=TRUE")

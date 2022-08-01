@@ -1,7 +1,8 @@
 plot.imbalance.space <- function(...) imbspace.plot(...)
 
 imbspace.plot2 <- function(obj,group="1"){
-	if(class(obj) != "imbalance.space")
+    #if(class(obj) != "imbalance.space")
+    if(!inherits(obj,"imbalance.space"))
 	stop("obj must be of class `imbalance.space'")
   imE <- new.env()
   imE$obj <- obj
@@ -66,7 +67,8 @@ imbspace.plot <- function(obj,group="1", data, explore=TRUE, verbose=1){
 	}
 	
 	
-	if(class(obj) != "imbalance.space")
+#	if(class(obj) != "imbalance.space")
+    if(!inherits(obj,"imbalance.space"))
 	stop("obj must be of class `imbalance.space'")
 	imE <- new.env()
 	imE$obj <- obj
@@ -177,14 +179,16 @@ imbspace.plot <- function(obj,group="1", data, explore=TRUE, verbose=1){
 				vv <- names(imE$tmp.br)[i]
 				tmpc <- tclvalue( tcvars[[i]] )
 				imE$new.br[[i]] <- try(eval(parse(text=tmpc)), silent = TRUE)
-				if( class(imE$new.br[[i]]) == "try-error"){
+                #if( class(imE$new.br[[i]]) == "try-error"){
+                if( inherits(imE$new.br[[i]],"try-error")){
 					warning(sprintf("\nError in settings cutpoints of variable << %s >>:\n\n >> %s <<\n\n Using original ones.\n", vv, tmpc) )
 				  imE$new.br[[i]] <- imE$tmp.br[[i]] 
 				}
 			}
 			tmpc <- tclvalue( tcvars[[imE$n.tmp.br+1]] )
 			other.args <- try(eval(parse(text=tmpc)), silent = TRUE)
-			if( class(other.args) == "try-error"){
+            #if( class(other.args) == "try-error"){
+            if( inherits(other.args, "try-error")){
 				warning(sprintf("\nError in additional CEM arguments specification. Ignoring them.\n", tmpc) )
 				other.args <- NULL 
 			} else 

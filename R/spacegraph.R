@@ -24,7 +24,8 @@ function (treatment = NULL, data = NULL, R = list(cem = 50, psm = 0,
             stop("Must match with 4 or more variables for PSM, MDM, or MatchIt.")
         }
     }
-    if (!is.null(raw.profile) & class(raw.profile) != "L1profile") 
+#        if (!is.null(raw.profile) & class(raw.profile) != "L1profile")
+    if (!is.null(raw.profile) & !inherits(raw.profile, "L1profile"))
         stop("raw.profile must be of class `L1profile'")
     if (!is.list(R)) 
         stop("R must be supplied as a list.  Ex: R = list(cem=100)")
@@ -1822,7 +1823,8 @@ spacegraph.plot2 <- function(obj, objname=NULL, group="1",
                             scale.var=TRUE,
                             verbose=1,
                             ...){
-	if(class(obj) != "spacegraph")
+    #if(class(obj) != "spacegraph")
+	if(!inherits(obj,"spacegraph"))
 	  stop("obj must be of class `spacegraph'")
   spE <- new.env()
   spE$obj <- obj
@@ -1955,7 +1957,8 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 	}
 	
 	spE <- new.env()
-	if(class(obj) != "spacegraph")
+#    if(class(obj) != "spacegraph")
+	if(!inherits(obj,"spacegraph"))
 	  stop("obj must be of class `spacegraph'")
 	spE$obj <- obj
 	obj <- NULL
@@ -2213,7 +2216,8 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 			  cat("\n... running the call ...\n")
 			tmpc <- tclvalue( callInfo )
 			valid <- try(eval(parse(text=tmpc)), silent = TRUE)
-			if( class(valid) == "try-error" ){
+            #if( class(valid) == "try-error" ){
+            if( inherits(valid,"try-error")){
 			  if(verbose>=1)
   				cat(sprintf("\nError in call specification. Exiting.\n", tmpc) )
        return(NULL)
@@ -2221,7 +2225,8 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
                   tmp.mat <- eval(parse(text= tclvalue(callInfo)))
                  
 			tclServiceMode(TRUE)
-                  if(class(tmp.mat)=="cem.match"){
+          #  if(class(tmp.mat)=="cem.match"){
+                if(inherits(tmp.mat,"cem.match")){
                       if(balance.metric=="L1"){
 			      tmp.ML1 <- L1.meas(spE$obj$match$groups, data=data[,spE$obj$match$vars], breaks=spE$obj$medianCP, weights=tmp.mat$w)$L1
 			    }
@@ -2243,7 +2248,8 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
           spE$xy <- xy.coords(1/sqrt(spE$n), spE$ML1)
 			    update.imbplot(len.c+1)	
                   }
-                  if(class(tmp.mat)=="psm.match"){
+                #if(class(tmp.mat)=="psm.match"){
+                if(inherits(tmp.mat,"psm.match")){
                       tvar <- as.character(as.formula(gsub("()","",tmp.mat$call["formula"],fixed=T)))[2]
                       if(balance.metric=="L1"){
                         tmp.ML1 <- L1.meas(tmp.mat$match.dat[[tvar]], data=tmp.mat$match.dat[,spE$obj$match$vars], breaks=spE$obj$medianCP, weights=tmp.mat$match.dat[,"weights"])$L1
@@ -2271,7 +2277,8 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
                        spE$xy <- xy.coords(1/sqrt(spE$n), spE$ML1)
 			                update.imbplot(len.c+1)
                   }
-                  if(class(tmp.mat)=="mdm.match"){
+                #if(class(tmp.mat)=="mdm.match"){
+                if(inherits(tmp.mat,"mdm.match")){
                       tvar <- as.character(as.formula(gsub("()","",tmp.mat$call["formula"],fixed=T)))[2]
                       if(balance.metric=="L1"){
                         tmp.ML1 <- L1.meas(tmp.mat$match.dat[[tvar]], data=tmp.mat$match.dat[,spE$obj$match$vars], 
@@ -2300,7 +2307,8 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 			    spE$xy <- xy.coords(1/sqrt(spE$n), spE$ML1)
 			    update.imbplot(len.c+1)             
                   }
-                  if(class(tmp.mat)=="matchit"){
+                #if(class(tmp.mat)=="matchit"){
+                if(inherits(tmp.mat,"matchit")){
                       ## Note, this is not changed to allow mean differences
 			    tmp.ML1 <- L1.meas(spE$obj$match$groups, data=data[,spE$obj$match$vars], 
                                          breaks=spE$obj$medianCP, weights=tmp.mat$weights)$L1
@@ -2358,14 +2366,16 @@ spacegraph.plot <- function(obj, objname=NULL, group="1", explore=TRUE,
 				vv <- names(spE$tmp.br)[i]
 				tmpc <- tclvalue( tcvars[[i]] )
 				spE$new.br[[i]] <- try(eval(parse(text=tmpc)), silent = TRUE)
-				if( class(spE$new.br[[i]]) == "try-error"){
+                #if( class(spE$new.br[[i]]) == "try-error"){
+                if( inherits(spE$new.br[[i]],"try-error")){
 					warning(sprintf("\nError in settings cutpoints of variable << %s >>:\n\n >> %s <<\n\n Using original ones.\n", vv, tmpc) )
 				  spE$new.br[[i]] <- spE$tmp.br[[i]] 
 				}
 			}
 			tmpc <- tclvalue( tcvars[[spE$n.tmp.br+1]] )
 			other.args <- try(eval(parse(text=tmpc)), silent = TRUE)
-			if( class(other.args) == "try-error"){
+            #if( class(other.args) == "try-error"){
+            if( inherits(other.args, "try-error")){
 				warning(sprintf("\nError in additional CEM arguments specification. Ignoring them.\n", tmpc) )
 				other.args <- NULL 
 			} else 
@@ -2668,9 +2678,11 @@ mdisc2 <- function(caliperdat, alldat,mvars,tvar, wt = NULL){
 ## A function for combining spacegraph objects for plotting
 
 combine.spacegraphs <- function(x,y){
-      if (class(x) != "spacegraph") 
+    #if (class(x) != "spacegraph")
+    if (!inherits(x,"spacegraph"))
         stop("x must be of class `spacegraph'")
-      if (class(y) != "spacegraph") 
+#        if (class(y) != "spacegraph")
+      if (!inherits(y,"spacegraph"))
         stop("y must be of class `spacegraph'")
       out <- x
       new <- y$space[-which(y$space[,"Relaxed"] == "<raw>"),]

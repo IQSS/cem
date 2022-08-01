@@ -3,9 +3,11 @@ function (obj, data, depth = 1, L1.breaks = NULL,
 plot = TRUE, fixed = NULL, minimal = 1, maximal = 6,
 M=250, raw.profile=NULL, verbose=1) 
 {
-    if (class(obj) != "cem.match") 
+#    if (class(obj) != "cem.match")
+    if (!inherits(obj,"cem.match"))
 	stop("obj must be of class `cem.match'")
-    if (!is.null(raw.profile) & class(raw.profile) != "L1profile") 
+#    if (!is.null(raw.profile) & class(raw.profile) != "L1profile")
+    if (!is.null(raw.profile) & !inherits(raw.profile, "L1profile"))
 	stop("raw.profile must be of class `L1profile'")
     
     grouping <- obj$grouping
