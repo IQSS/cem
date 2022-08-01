@@ -1,7 +1,14 @@
 NEWS in CEM version 1.1.30
 * changed package maintainer info
 * fixed if(class(obj)==string)
-
+* removed warnings in k2k and pair when calculating
+  distances. Data are transformed from factor/character
+  to numeric with a message but does not generate a
+  warnings that prevents cem to pass check on some
+  platforms
+* remove warning when matching on missing data
+  to let cem pass build check on some platforms
+  
 NEWS in CEM version 1.1.29
 * fixed vignette formatting
 * fixed \url vs \doi in man pages

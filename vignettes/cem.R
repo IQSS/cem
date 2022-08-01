@@ -150,7 +150,7 @@ invisible(dev.off())
 ###################################################
 ### code chunk number 23: cem.Rnw:751-754
 ###################################################
-mat <- cem(treatment="treated",data=Le, drop="re78")
+mat <- cem(treatment="treated",data=Le, drop="re78",keep.all=TRUE)
 mat
 mat$k2k
 
