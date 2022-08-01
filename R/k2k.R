@@ -1,84 +1,3 @@
-ak2k <- function (obj, data, method = NULL, mpower = 2, verbose = 1)
-{
-    nm <- NULL
-    for (i in obj$mstrataID) {
-        if(verbose>=1)
-          cat(sprintf("\nmastrata=%d\n",i))
-        idx <- which(obj$mstrata == i)
-        tmp <- obj$groups[idx]
-        tr <- idx[which(tmp == obj$g.names[1])]
-        ct <- idx[which(tmp == obj$g.names[2])]
-        n.tr <- length(tr)
-        n.ct <- length(ct)
-        m <- min(n.tr, n.ct)
-        n <- n.tr + n.ct
-        if (n.tr != n.ct) {
-            idx2 <- c(tr, ct)
-            if (is.null(method)) {
-                mat <- matrix(runif(n * n), n, n)
-                colnames(mat) <- rownames(data)[idx2]
-                rownames(mat) <- rownames(data)[idx2]
-            }
-            else {
-                mat <- as.matrix(dist(data[idx2, obj$vars], method = method,
-                p = mpower))
-            }
-            m <- min(n.tr, n.ct)
-            mat1 <- matrix(mat[1:n.tr, -(1:n.tr)], n.tr, n.ct)
-            colnames(mat1) <- colnames(mat)[-(1:n.tr)]
-            rownames(mat1) <- rownames(mat)[1:n.tr]
-            if(n.tr>0 & n.ct>0){
-             if (n.tr > n.ct) {
-                for(k in 1:m){
-                    print(k)
-                    print(mat1)
-                 mins <- apply(mat1, 2, function(x) which.min(x))[1]
-                 coln <- colnames(mat1)[1]
-                 rown <- rownames(mat1)[mins]
-                 if(verbose>=1)
-                   cat("\nrow-col\n")
-                 print(c(length(coln),length(rown)))
-                 nm <- c(nm, coln, rown)
-                 mat1 <- mat1[-mins,]
-                }
-             }
-             if(n.tr < n.ct) {
-                for(k in 1:m){
-                    print(k)
-                    print(mat1)
-                 mins <- apply(mat1, 1, function(x) which.min(x))[1]
-                 rown <- rownames(mat1)[1]
-                 coln <- colnames(mat1)[mins]
-                 if(verbose>=1)
-                   cat("\nrow-col2\n")
-                 print(c(length(coln),length(rown)))
-                 nm <- c(nm, coln, rown)
-                 mat1 <- mat1[,mins]
-                }
-             }
-         }
-        } else { # n.tr != n.ct
-            nm <- c(nm, rownames(obj$X)[c(ct, tr)])
-        }
-    }
-    print(table(nm))
-    idx <- match(nm, rownames(obj$X))
-    print(idx)
-    print(table(idx))
-    idx <- idx[which(!is.na(idx))]
-    idx <- unique(idx)
-    print(table(idx))
-    if (length(idx) > 0) {
-        obj$matched[-idx] <- FALSE
-        obj$mstrata[-idx] <- NA
-        obj$w <- numeric(dim(data)[1])
-        obj$w[idx] <- 1
-        obj$k2k <- TRUE
-        obj$tab <- cem.summary(obj = obj, verbose = verbose)
-    }
-    invisible(obj)
-}
-
 k2k <- function(obj, data, method=NULL, mpower=2, verbose=0){
 		   nm <- NULL
         if(is.null(obj$X))
@@ -95,13 +14,23 @@ k2k <- function(obj, data, method=NULL, mpower=2, verbose=0){
 		  n <- n.tr+n.ct
 		  if(n.tr != n.ct){
 		   idx2 <- c(tr, ct)
+           mat <- matrix(as.numeric(NA), n,n)
+           colnames(mat) <- rownames(data)[idx2]
+           rownames(mat) <- rownames(data)[idx2]
+       
 		   if(is.null(method)){
 		    mat <- matrix(runif(n*n), n,n)
 			colnames(mat) <- rownames(data)[idx2]
 			rownames(mat) <- rownames(data)[idx2]
 			} else {
-		     mat <- as.matrix(dist(data[idx2, obj$vars],method=method, p=mpower))
-			}
+             tmp <- data[idx2, obj$vars]
+             if(sum(is.na(tmp)<1)) { #no NAs
+                 mat <- as.matrix(dist(data[idx2, obj$vars],method=method, p=mpower))
+                 colnames(mat) <- rownames(data)[idx2]
+                 rownames(mat) <- rownames(data)[idx2]
+             }
+            }
+           #}
 		   m <- min(n.tr, n.ct)
 		   mat1 <- matrix(mat[1:n.tr,-(1:n.tr)], n.tr, n.ct)
 
@@ -110,10 +39,14 @@ k2k <- function(obj, data, method=NULL, mpower=2, verbose=0){
 		   if(n.tr > n.ct){
 		    for(k in 1:m){
                 #                print(mat1)
-             mins <- apply(mat1, 2, function(x) min(x, na.rm=TRUE))
-			 min.c <- min(mins, na.rm=TRUE)
-			 col <- which(mins == min.c)[1]
-			 row <- which(mat1[,col]==min.c)[1]
+             #mins <- apply(mat1, 2, function(x) min(x, na.rm=TRUE))
+			 #min.c <- min(mins, na.rm=TRUE)
+			 #col <- which(mins == min.c)[1]
+			 #row <- which(mat1[,col]==min.c)[1]
+             if(all(is.na(mat1))) break;
+             idxMin <- which(mat1 == min(mat1,na.rm=TRUE), arr.ind = TRUE)
+             col <- idxMin[1,"col"]
+             row <- idxMin[1,"row"]
 			 mat1[row, 1:n.ct] <- NA
 			 mat1[1:n.tr ,col] <- NA
              #print(c(colnames(mat1)[col], rownames(mat1)[row]))
@@ -122,10 +55,14 @@ k2k <- function(obj, data, method=NULL, mpower=2, verbose=0){
 		   } else {
 		    for(k in 1:m){
                 #  print(mat1)
-             mins <- apply(mat1, 1, function(x) min(x, na.rm=TRUE))
-			 min.r <- min(mins, na.rm=TRUE)
-			 row <- which(mins == min.r)[1]
-			 col <- which(mat1[row,]==min.r)[1]
+#             mins <- apply(mat1, 1, function(x) min(x, na.rm=TRUE))
+#			 min.r <- min(mins, na.rm=TRUE)
+#			 row <- which(mins == min.r)[1]
+#			 col <- which(mat1[row,]==min.r)[1]
+             if(all(is.na(mat1))) break ;
+             idxMin <- which(mat1 == min(mat1,na.rm=TRUE), arr.ind = TRUE)
+             col <- idxMin[1,"col"]
+             row <- idxMin[1,"row"]
 			 mat1[row, ] <- NA
 			 mat1[ ,col] <- NA
 			 nm <- c(nm, colnames(mat1)[col], rownames(mat1)[row]) 
