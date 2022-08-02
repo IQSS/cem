@@ -2,7 +2,7 @@
 %\usepackage{/usr/lib64/R/share/texmf/Rd}
 %\usepackage{/usr/lib64/R/share/texmf/Sweave}
 %\usepackage{/usr/lib64/R/share/texmf/upquote}
-\usepackage[utf8x]{inputenc} 
+%\usepackage[utf8x]{inputenc} 
 
 \usepackage[pdftex, bookmarksopen=true, bookmarksnumbered=true,
 pdfstartview=FitH, breaklinks=true, urlbordercolor={0 1 0},
@@ -48,14 +48,14 @@ citebordercolor={0 0 1}]{hyperref}
 \usepackage{color}
 
 
-\title{CEM: Software for Coarsened Exact Matching\thanks{Forthcoming,
-    \emph{Journal of Statistical Software}}}
-\author{Stefano M.\ Iacus\thanks{European Commission, Joint Research Centre, Ispra (VA), Italy; stefano.iacus@ec.europa.eu.}
+\title{CEM: Software for Coarsened Exact Matching\thanks{
+    \emph{Journal of Statistical Software}, {\bf 30}(2009), \url{https://doi.org/10.18637/jss.v030.i09}.}}
+\author{Stefano M.\ Iacus\thanks{Institute for Quantitative Social Science, Harvard University, Cambridge MA, USA; siacus@iq.harvard.edu.}
 \and %
 Gary King\thanks{Institute for Quantitative Social Science, Harvard University, Cambridge MA, USA;
   \url{http://GKing.harvard.edu}, king@harvard.edu.}
 \and %
-Giuseppe Porro\thanks{DiDEC Dipartimento di Diritto, Economia e Culture, Università dell'Insubria, Como, Italy;
+Giuseppe Porro\thanks{DiDEC Dipartimento di Diritto, Economia e Culture, Universit\`a dell'Insubria, Como, Italy;
   giuseppe.porro@uninsubria.it.} }
 
 % rbuild: replace 'Version ' '\\' Version

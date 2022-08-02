@@ -8,6 +8,8 @@ NEWS in CEM version 1.1.30
   platforms
 * remove warning when matching on missing data
   to let cem pass build check on some platforms
+* removed utf8x requirement from vignette that
+  prevented clean build of vignette under some systems
   
 NEWS in CEM version 1.1.29
 * fixed vignette formatting
