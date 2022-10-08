@@ -1,3 +1,6 @@
+NEWS in CEM version 1.1.31
+* fixed vignette code
+
 NEWS in CEM version 1.1.30
 * changed package maintainer info
 * fixed if(class(obj)==string)

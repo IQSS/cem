@@ -28,7 +28,7 @@ citebordercolor={0 0 1}]{hyperref}
 \usepackage{fullpage}
 \usepackage{caption}
 % === math packages ===
-\usepackage[reqno]{amsmath}
+%\usepackage[reqno]{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb,enumerate}
 \newtheorem{Com} {Comment}
@@ -131,15 +131,15 @@ multicategory treatment variables, we simplify this introductory
 description by assuming that $T_i$ is dichotmous and takes on the
 value 1 for ``treated'' units and 0 for ``control'' units.  Then
 define the treatment effect for treated units as the difference
-between two potential outcomes: $\text{TE}_i = Y_i(T_i=1) -
+between two potential outcomes: $\textrm{TE}_i = Y_i(T_i=1) -
 Y_i(T_i=0)$, where $Y_i(T_i=1) = Y_i$ is always obseved and
 $Y_i(T_i=0)$, the value that $Y_i$ would have taken on if it were the
 case that $T_i=0$, is always unobserved.  Then $Y_i(T_i=0)$ is
 estimated with $Y_j$ from matched controls (i.e., among units for
 which $X_i\approx X_j$), either directly, $\hat Y_i(T_i=0) =
 Y_j(T_j=0)$, or via a model, $\hat Y_i(T_i=0) = \hat g(X_j)$.  Then
-SATT can be computed as a simple average: $\text{SATT} = \frac{1}{n_T}
-\sum_{i\in\{T_i=1\}} \text{TE}_i$.
+SATT can be computed as a simple average: $\textrm{SATT} = \frac{1}{n_T}
+\sum_{i\in\{T_i=1\}} \textrm{TE}_i$.
 
 \paragraph{Algorithm}
 The CEM algorithm then involves three steps:
